@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Divider,
@@ -66,8 +65,7 @@ function BuyNow() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
+    console.log(quantity);
     const orderData = {
       note,
       customer: {
@@ -175,7 +173,7 @@ function BuyNow() {
               />
             </Box>
           </Box>
-          <Paper sx={{ width: "30vw", marginTop: 2 }}>
+          <Paper sx={{ width: "35vw", marginTop: 2 }}>
             <Box sx={{ backgroundColor: "#DDDDDD", padding: 2 }}>
               <Typography variant="h4">Tổng kết</Typography>
               <Typography variant="subtitle1">1 mặt hàng</Typography>
@@ -195,7 +193,7 @@ function BuyNow() {
               <Box width={10}>
                 <Typography variant="h5">{quantity}</Typography>
               </Box>
-              <Box width={100}>
+              <Box width={180}>
                 <Typography variant="h5">
                   {(data.price * quantity).toFixed(2)}
                 </Typography>
@@ -218,7 +216,7 @@ function BuyNow() {
               <Box width={10}>
                 <Typography variant="h5">0%</Typography>
               </Box>
-              <Box width={100}>
+              <Box width={180}>
                 <Typography variant="h5">0 VND</Typography>
               </Box>
             </Stack>

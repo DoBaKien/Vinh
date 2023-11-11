@@ -24,6 +24,9 @@ import { handleTop } from "../assets/action/Action";
 import BuyNow from "./BuyNow.js";
 import FooterA from "../components/Footer/FooterA.js";
 import User from "./User/User.js";
+import History from "./History/History.js";
+import Detail from "./History/Detail.js";
+import Account from "./Account/Account.js";
 
 function App() {
   const [isLog, setIsLog] = useState(false);
@@ -74,6 +77,15 @@ function App() {
               </Route>
               <Route path="/User" exact>
                 <User />
+              </Route>
+              <Route path="/History" exact>
+                <History />
+              </Route>
+              <Route path="/Account" exact>
+                <Account />
+              </Route>
+              <Route path="/History/:id" exact>
+                <Detail />
               </Route>
               <Route path="/home" exact>
                 <Personal />

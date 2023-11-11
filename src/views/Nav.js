@@ -106,7 +106,7 @@ const Nav = () => {
             {isLoggedIn ? (
               // Đã đăng nhập, hiển thị "Cá nhân"
               <li className="nav-item">
-                <Link className="nav-link-nav mx-3 text-uppercase" to="/home">
+                <Link className="nav-link-nav mx-3 text-uppercase" to="/User">
                   <i className="fas fa-user-alt"></i>
                   <br /> Cá nhân
                 </Link>
@@ -114,7 +114,7 @@ const Nav = () => {
             ) : user ? (
               // Chưa đăng nhập, nhưng user tồn tại, hiển thị "Cá nhân"
               <li className="nav-item">
-                <Link className="nav-link-nav mx-3 text-uppercase" to="/home">
+                <Link className="nav-link-nav mx-3 text-uppercase" to="/User">
                   <i className="fas fa-user-alt"></i> <br />
                   Cá nhân
                 </Link>

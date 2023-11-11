@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Left from "./Left";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,7 +7,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import PaidIcon from "@mui/icons-material/Paid";
 import RedeemIcon from "@mui/icons-material/Redeem";
-import { BoxItem } from "./Style";
+import { BoxItem, BtnDetail } from "./Style";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StarsIcon from "@mui/icons-material/Stars";
 function User() {
@@ -92,9 +92,10 @@ function User() {
           </Stack>
           <Stack
             direction={"row"}
-            gap={5}
             sx={{
               width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
               marginTop: 5,
             }}
           >
@@ -107,9 +108,9 @@ function User() {
               <Typography variant="h5" sx={{ marginTop: 2 }}>
                 0 ưu đãi
               </Typography>
-              <Button variant="contained" sx={{ marginTop: 5 }}>
+              <BtnDetail variant="contained" sx={{ marginTop: 5 }}>
                 Xem chi tiết
-              </Button>
+              </BtnDetail>
             </BoxItem>
             <BoxItem sx={{ backgroundColor: "#E5A8F3" }}>
               <LocalShippingIcon sx={{ fontSize: 60 }} />
@@ -119,9 +120,9 @@ function User() {
               <Typography variant="h5" sx={{ marginTop: 2 }}>
                 6 đơn hàng
               </Typography>
-              <Button variant="contained" sx={{ marginTop: 5 }}>
+              <BtnDetail variant="contained" sx={{ marginTop: 5 }}>
                 Xem chi tiết
-              </Button>
+              </BtnDetail>
             </BoxItem>
             <BoxItem sx={{ backgroundColor: "#F1B69B" }}>
               <StarsIcon sx={{ fontSize: 60 }} />
@@ -132,9 +133,9 @@ function User() {
                 Khách hàng
               </Typography>
 
-              <Button variant="contained" sx={{ marginTop: 5 }}>
+              <BtnDetail variant="contained" sx={{}}>
                 Xem chi tiết
-              </Button>
+              </BtnDetail>
             </BoxItem>
           </Stack>
         </Box>

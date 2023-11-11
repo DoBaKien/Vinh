@@ -11,14 +11,19 @@ import {
 import ReportIcon from "@mui/icons-material/Report";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";
-
+import { useHistory } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 function Left() {
+  const history = useHistory();
+
   return (
     <Box p={1} sx={{ width: 300, bgcolor: "white" }}>
       <Box>
         <List bgcolor="background.paper">
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => history.push("/User")}>
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
@@ -28,7 +33,7 @@ function Left() {
           <Divider />
           <Divider />
           <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
-            <ListItemButton>
+            <ListItemButton onClick={() => history.push("/History")}>
               <ListItemIcon>
                 <CategoryIcon />
               </ListItemIcon>
@@ -38,9 +43,9 @@ function Left() {
           <Divider />
           <Divider />
           <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
-            <ListItemButton>
+            <ListItemButton onClick={() => history.push("/Account")}>
               <ListItemIcon>
-                <ReportIcon />
+                <AccountCircleIcon />
               </ListItemIcon>
               <ListItemText primary="Tài khoản của bạn" />
             </ListItemButton>
@@ -50,7 +55,7 @@ function Left() {
           <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
             <ListItemButton>
               <ListItemIcon>
-                <ReportIcon />
+                <HeadsetMicIcon />
               </ListItemIcon>
               <ListItemText primary="Hỗ trợ" />
             </ListItemButton>
@@ -61,6 +66,16 @@ function Left() {
             <ListItemButton>
               <ListItemIcon>
                 <ReportIcon />
+              </ListItemIcon>
+              <ListItemText primary="Phản hồi" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <Divider />
+          <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
+            <ListItemButton>
+              <ListItemIcon>
+                <ExitToAppIcon />
               </ListItemIcon>
               <ListItemText primary="Đăng xuất" />
             </ListItemButton>
