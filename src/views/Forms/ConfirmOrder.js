@@ -1,40 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../../styles/ConfirmOrder.scss";
 const ConfirmOrder = ({
   cart,
-  setIsConfirming,
+
   setPopupVisible,
   user,
   handleConfirm,
   total,
 }) => {
-  // const [total, setTotal] = useState(0);
-
-  // useEffect(() => {
-  //   cart.map((item) => {
-  //     setTotal(total + item.quantity * item.product.price);
-  //   });
-  // }, []);
   return (
-    // <div>
-    //   <h4>Order Summary</h4>
-    //   {/* <p>Note: {note}</p> */}
-    //   <ul>
-    //     {cart.map((item) => (
-    //       <li key={item.product.id}>
-    //         Sản phẩm: {item.product.productName} Số lượng: {item.quantity}
-    //       </li>
-    //     ))}
-    //   </ul>
-    //   <button
-    //     onClick={() => {
-    //       setIsConfirming();
-    //     }}
-    //   >
-    //     Confirm Order
-    //   </button>
-    // </div>
-
     // ===================
     <div class="containerFormCheckOut">
       <div class="cardFormCheckOut cartFormCheckOut">
@@ -46,7 +20,6 @@ const ConfirmOrder = ({
               setPopupVisible(false);
             }}
           >
-            {" "}
             X
           </button>
         </div>

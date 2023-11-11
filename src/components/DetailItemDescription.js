@@ -3,9 +3,10 @@ import "../styles/DetailItemDescription.scss";
 import { useEffect } from "react";
 import axios from "axios";
 
+import { useHistory } from "react-router-dom";
+
 import gift from "../assets/images/gift-filled.png";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const DetailItemDescription = (props) => {
   const [dataDes, setDataDes] = useState();
@@ -14,9 +15,10 @@ const DetailItemDescription = (props) => {
   useEffect(() => {
     if (props.data) {
       axios
-        .get(`http://localhost:8521/api/v1/products/getById/${props.data}`)
+        .get(`/api/v1/products/getById/${props.data}`)
         .then(function (response) {
-          setDataDes(response.data);
+          setDataDes(response);
+          console.log(response.data.id);
         })
         .catch(function (error) {
           console.log(error);
@@ -24,10 +26,16 @@ const DetailItemDescription = (props) => {
     }
   }, [props.data]);
 
+  const handleView = () => {
+    const newPath = `/BuyNow/${props.data}`;
+
+    history.push(newPath);
+  };
+
   const addToCart = () => {
     axios
-      .post("http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate", {
-        product: { id: dataDes.id },
+      .post("/api/v1/shoppingCartDetails/saveOrUpdate", {
+        product: { id: dataDes.data.id },
         shoppingCart: { id: dataUser.shoppingCart.id },
         quantity: 1,
       })
@@ -37,11 +45,6 @@ const DetailItemDescription = (props) => {
       .catch(function () {
         toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
       });
-  };
-
-  const buyNow = () => {
-    console.log(dataDes);
-    history.push("/Checkout", { dataDes });
   };
 
   return (
@@ -109,9 +112,10 @@ const DetailItemDescription = (props) => {
         </div>
       </div>
       <div className="button-container">
-        <button className="btnBuy" onClick={() => buyNow()}>
+        <button className="btnBuy" onClick={() => handleView()}>
           Mua ngay
         </button>
+
         <button className="btnAdd" onClick={() => addToCart()}>
           Thêm vào giỏ hàng
         </button>

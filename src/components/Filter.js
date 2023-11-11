@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
   // const [category, setCategory] = useState();
   // const [brand, setBrand] = useState();

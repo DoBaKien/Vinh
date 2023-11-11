@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+
 import { toast } from "react-toastify";
 // import ConfirmationForm from "./ConfirmationForm";
 import ConfirmOrder from "./Forms/ConfirmOrder";
@@ -19,7 +19,7 @@ const CheckOut = (props) => {
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
-  const [isConfirming, setIsConfirming] = useState(false);
+
   const [popupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
@@ -182,7 +182,6 @@ const CheckOut = (props) => {
                 cart={cart}
                 // isConfirming={isConfirming}
                 handleConfirm={handleConfirm}
-                setIsConfirming={setIsConfirming}
                 setPopupVisible={setPopupVisible}
                 user={user}
                 total={total}

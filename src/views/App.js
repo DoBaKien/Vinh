@@ -21,6 +21,9 @@ import NorthIcon from "@mui/icons-material/North";
 import SuccessOrder from "./SuccessOrder";
 import Footer from "../components/Footer";
 import { handleTop } from "../assets/action/Action";
+import BuyNow from "./BuyNow.js";
+import FooterA from "../components/Footer/FooterA.js";
+import User from "./User/User.js";
 
 function App() {
   const [isLog, setIsLog] = useState(false);
@@ -42,6 +45,7 @@ function App() {
         <div className="App">
           <header className="App-header">
             <Nav value={isLog} />
+
             {btn ? (
               <div
                 style={{
@@ -63,11 +67,14 @@ function App() {
             ) : (
               <></>
             )}
+
             <Switch>
               <Route path="/" exact>
                 <Home />
               </Route>
-
+              <Route path="/User" exact>
+                <User />
+              </Route>
               <Route path="/home" exact>
                 <Personal />
               </Route>
@@ -89,16 +96,17 @@ function App() {
               <Route path="/Shopping" exact>
                 <Shopping />
               </Route>
+              <Route path="/BuyNow/:id">
+                <BuyNow />
+              </Route>
               <Route path="/Shopping/:id">
                 <DetailItem />
               </Route>
-
               <Route path="/OrderDetail/:id" component={OrderDetail} />
 
               <Route path="/Cart">
                 <Cart />
               </Route>
-
               <Route
                 path="/Checkout"
                 render={(props) => <CheckOut {...props} />}
@@ -107,7 +115,9 @@ function App() {
           </header>
 
           {/* foooter */}
-          <Footer />
+
+          <FooterA value={isLog} />
+
           <ToastContainer
             position="top-right"
             autoClose={2000}

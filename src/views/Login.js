@@ -1,20 +1,19 @@
 import "../styles/Login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CustomFetch } from "../utils/CustomFetch";
+
 import { toast } from "react-toastify";
 import logo from "../assets/images/logo.png";
 
 import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 
 import { useHistory } from "react-router-dom";
 
-import { useState, createContext, useContext } from "react";
+import { useState } from "react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
-  const [error, setError] = useState(null);
 
   const { setIsLoggedIn } = useAuth();
 
@@ -57,15 +56,9 @@ const Login = () => {
       }
 
       console.log(data);
-      // if (data.errorCode !== undefined) {
-      //   toast.error(data.message);
-
-      //   return;
-
-      // }
     } catch (error) {
       console.log(error.message);
-      setError(error.message);
+
       toast.error(`sai tài khoản hoặc mật khẩu!`);
     }
   };
@@ -75,7 +68,7 @@ const Login = () => {
       <div className="col-12">
         <div className="containerLogo">
           <h2 style={{ display: "block" }}>Đăng nhập</h2>
-          <img className="logoLogin" src={logo}></img>
+          <img className="logoLogin" src={logo} alt=""></img>
         </div>
 
         <div className="mb-3 p">

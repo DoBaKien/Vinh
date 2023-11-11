@@ -1,16 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CustomFetch } from "../utils/CustomFetch";
+
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../styles/Personal.scss";
-import { Link, NavLink } from "react-router-dom";
 
 import FormatDate2Input from "../utils/FormatDate2Input";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
-import OrderDetail from "../components/OrderDetail";
-import { useEffect, useState, useContext, createContext } from "react";
-import OrderTracking from "../components/OrderTracking";
+
+import { useEffect, useState } from "react";
+
 import ListOrder from "../components/ListOrder";
 const Personal = () => {
   const history = useHistory();
@@ -127,7 +126,6 @@ const Personal = () => {
       setAccount(temp.account);
       setId(temp.id);
     }
-    console.log(birthDay);
   }, [flag]);
   //   ========
   return (

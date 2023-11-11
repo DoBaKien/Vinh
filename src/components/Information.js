@@ -14,7 +14,7 @@ const Information = (props) => {
   useEffect(() => {
     // Lấy thông tin khách hàng từ props
     console.log(user);
-    if (user != undefined) {
+    if (user !== undefined) {
       setName(user.name || "");
       setEmail(user.email || "");
       setPhone(user.numberPhone || "");
@@ -32,7 +32,7 @@ const Information = (props) => {
       );
       setBirthday(user.birthday || "");
     }
-  }, [props]);
+  }, [user]);
 
   const handleOnChangeInput = (event) => {
     const { name, value } = event.target;

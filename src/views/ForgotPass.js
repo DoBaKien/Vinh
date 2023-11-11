@@ -5,11 +5,6 @@ import { useState } from "react";
 const ForgotPass = () => {
   const [email, setEmail] = useState("");
 
-  const handleOnChangeInput = (event) => {
-    const { name, value } = event.target;
-    setEmail(value);
-  };
-
   const handleResetPassword = async (event) => {
     event.preventDefault();
     try {
@@ -47,7 +42,7 @@ const ForgotPass = () => {
           className="subscribe-input"
           name="email"
           type="email"
-          onChange={handleOnChangeInput}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <div className="submit-btn" onClick={handleResetPassword}>

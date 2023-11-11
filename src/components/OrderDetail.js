@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import "../styles/OrderDetail.scss";
 import OrderTracking from "./OrderTracking";
 import { useLocation } from "react-router-dom";
 
-const OrderDetail = ({}) => {
+const OrderDetail = () => {
   function calculateTotal(orderDetails) {
     return orderDetails.reduce((total, orderDetail) => {
       const productTotal = orderDetail.quantity * orderDetail.product.price;
@@ -13,22 +12,18 @@ const OrderDetail = ({}) => {
 
   const location = useLocation();
   const order = location.state.orderData;
-  useEffect(() => {
-    console.log(order);
-  }, []);
-  console.log(order);
 
   return (
     <div className="container-xxl DetailContainer">
       <div className="h-container" style={{ justifyContent: "space-around" }}>
         <div style={{ fontSize: "25px" }}>CHI TIẾT ĐƠN HÀNG {order.id}</div>
       </div>
-      {/* ===============================khách hàng =============================== */}
+
       <div
         className="h-container"
         style={{
           justifyContent: "space-around",
-          //   borderBottom: "1px solid #ccc",
+
           textDecoration: "underline",
         }}
       >

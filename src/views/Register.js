@@ -120,7 +120,7 @@ const Register = () => {
             <h2 style={{ display: "block", marginTop: "2em" }}>
               ĐĂNG KÝ TÀI KHOẢN
             </h2>
-            <img className="logoLogin" src={logo}></img>
+            <img className="logoLogin" src={logo} alt=""></img>
           </div>
         </div>
         <div className="row">

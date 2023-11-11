@@ -10,21 +10,21 @@ const IntroItem = (props) => {
   const [data, setData] = useState();
   const [status, setStatus] = useState(false);
   const [spec, setSpec] = useState([]);
-  // useEffect(() => {
-  //   setValue(localStorage.getItem("content"));
-  // }, []);
 
-  useEffect(async () => {
+  useEffect(() => {
     if (props.data) {
-      let res = await axios.get(
-        `http://localhost:8521/api/v1/products/getById/${props.data}`
-      );
-      setData(res.data);
-      setValue(res.data.description);
-      setSpec(res.data.specifications);
-      // console.log("intro : ", res);
+      axios
+        .get(`/api/v1/products/getById/${props.data}`)
+        .then(function (response) {
+          setData(response.data);
+          setValue(response.data.description);
+          setSpec(response.data.specifications);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
-  }, []);
+  }, [props.data]);
 
   const openEdit = () => {
     setStatus(true);
@@ -96,11 +96,13 @@ const IntroItem = (props) => {
             dangerouslySetInnerHTML={{ __html: value }}
           ></div>
         )}
-        <div className="col-4 shadow-sm p-3 mb-5 bg-white rounded">
+        <div
+          className="col-4 shadow-sm p-3 mb-5 bg-white rounded"
+          style={{ overflow: "auto", height: 300 }}
+        >
           <table className="table">
             <thead className="thead-dark">
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Tên</th>
                 <th scope="col">Thông số kĩ thuật</th>
               </tr>
@@ -108,7 +110,6 @@ const IntroItem = (props) => {
             <tbody>
               {spec.map((item, index) => (
                 <tr key={index}>
-                  <th scope="row">{index + 1}</th>
                   <td>{item.specificationName}</td>
                   <td>{item.specificationValue}</td>
                 </tr>

@@ -12,15 +12,12 @@ const CartItem = (props) => {
 
   const handleQuantityItemPlus = async () => {
     try {
-      axios.post(
-        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-        {
-          id: item.id,
-          product: { id: item.product.id },
-          shoppingCart: { id: item.shoppingCart.id },
-          quantity: quantity + 1,
-        }
-      );
+      axios.post("/api/v1/shoppingCartDetails/saveOrUpdate", {
+        id: item.id,
+        product: { id: item.product.id },
+        shoppingCart: { id: item.shoppingCart.id },
+        quantity: quantity + 1,
+      });
 
       setQuantity(quantity + 1);
       setPrice((quantity + 1) * item.product.price);
@@ -35,9 +32,7 @@ const CartItem = (props) => {
   const handleQuantityItemMinus = async () => {
     if (quantity === 1) {
       try {
-        await axios.delete(
-          `http://localhost:8521/api/v1/shoppingCartDetails/delete/${item.id}`
-        );
+        await axios.delete(`/api/v1/shoppingCartDetails/delete/${item.id}`);
 
         props.updateCart();
         toast.success("Xóa sản phẩm khỏi giỏ hàng thành công");
@@ -47,15 +42,12 @@ const CartItem = (props) => {
       }
     } else {
       try {
-        axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          {
-            id: item.id,
-            product: { id: item.product.id },
-            shoppingCart: { id: item.shoppingCart.id },
-            quantity: quantity - 1,
-          }
-        );
+        axios.post("/api/v1/shoppingCartDetails/saveOrUpdate", {
+          id: item.id,
+          product: { id: item.product.id },
+          shoppingCart: { id: item.shoppingCart.id },
+          quantity: quantity - 1,
+        });
 
         setQuantity(quantity - 1);
         setPrice((quantity - 1) * item.product.price);
@@ -72,15 +64,12 @@ const CartItem = (props) => {
     setQuantity(e);
     if (e > 0) {
       try {
-        axios.post(
-          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-          {
-            id: item.id,
-            product: { id: item.product.id },
-            shoppingCart: { id: item.shoppingCart.id },
-            quantity: e,
-          }
-        );
+        axios.post("/api/v1/shoppingCartDetails/saveOrUpdate", {
+          id: item.id,
+          product: { id: item.product.id },
+          shoppingCart: { id: item.shoppingCart.id },
+          quantity: e,
+        });
 
         setQuantity(e);
         setPrice(e * item.product.price);

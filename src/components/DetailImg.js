@@ -13,7 +13,7 @@ const DetailImg = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8521/api/v1/products/getById/${props.data}`)
+      .get(`/api/v1/products/getById/${props.data}`)
       .then(function (res) {
         setListImg(res.data.imageProducts);
         setActiveImg(res.data.imageProducts[0].imageLink);
@@ -21,17 +21,6 @@ const DetailImg = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-    // if (props.data) {
-    //   let res = axios.get(
-    //     `http://localhost:8521/api/v1/products/getById/${props.data}`
-    //   );
-
-    //   setListImg(res.data.imageProducts);
-    //   setActiveImg(res.data.imageProducts[0].imageLink);
-
-    //useEffect có ảnh hưởng tới active => bỏ tham số đi
-    // }
-    // }, [activeImg]);
   }, [props.data]);
 
   const handleActive = (index, event) => {
