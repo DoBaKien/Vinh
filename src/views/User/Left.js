@@ -19,7 +19,7 @@ function Left() {
   const history = useHistory();
 
   return (
-    <Box p={1} sx={{ width: 300, bgcolor: "white" }}>
+    <Box p={1} sx={{ width: 300, bgcolor: "white", borderRadius: 5 }}>
       <Box>
         <List bgcolor="background.paper">
           <ListItem disablePadding>
@@ -53,7 +53,7 @@ function Left() {
           <Divider />
           <Divider />
           <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
-            <ListItemButton>
+            <ListItemButton onClick={() => history.push("/Support")}>
               <ListItemIcon>
                 <HeadsetMicIcon />
               </ListItemIcon>

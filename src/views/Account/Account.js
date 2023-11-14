@@ -1,58 +1,222 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Avatar,
+  CircularProgress,
+} from "@mui/material";
 import Left from "../User/Left";
-import { DividerBox, TypographyList } from "./Style";
 import logo from "../../assets/images/logo.png";
+import { TextInput } from "./Style";
+import { createRef, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 function Account() {
   const dataUser = JSON.parse(localStorage.getItem("data"));
   console.log(dataUser);
-  const checkSex = () => {
-    if (dataUser.sex === 1) {
-      return <TypographyList>Giới tính: Nam</TypographyList>;
-    } else {
-      return <TypographyList>Giới tính: Nữ</TypographyList>;
+  const [ava, setAva] = useState(dataUser.avatar.imageLink);
+  const [fName, setFName] = useState(dataUser.firstName);
+  const [lName, setLName] = useState(dataUser.lastName);
+  const [email, setEmail] = useState(dataUser.email);
+  const [address, setAddress] = useState(dataUser.address);
+  const [phone, setPhone] = useState(dataUser.phone);
+  const [birth, setBirth] = useState(dataUser.dateOfBirth);
+  const [sex, setSex] = useState(dataUser.sex);
+  const [done, setDone] = useState(true);
+  const [id, setId] = useState("");
+
+  const handleChange = (event) => {
+    setSex(event.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    console.log(fName, lName, phone);
+    axios
+      .put(`/api/v1/customer/createOrUpdate`, {})
+      .then((res) => {
+        toast.success("Thành công");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const handleImageClick = () => {
+    imageInputRef.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    setDone(false);
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const imageURL = URL.createObjectURL(selectedFile);
+      setAva(imageURL);
+      const formData = new FormData();
+      formData.append("multipartFile", selectedFile);
+      axios
+        .post("/api/v1/avatars/saveOrUpdate", formData)
+        .then(function (response) {
+          setDone(true);
+          setId(response.data.id);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
+
+  // Ref cho input file
+  const imageInputRef = createRef();
   return (
     <Box
-      sx={{ flex: 1, display: "flex", justifyContent: "center", marginTop: 2 }}
+      sx={{
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 2,
+        paddingBottom: 2,
+      }}
     >
       <Stack direction={"row"} sx={{ width: "80vw" }} gap={5}>
         <Left />
-        <Box
+        <Stack
           sx={{
             width: "100%",
             backgroundColor: "white",
-            // paddingLeft: 20,
+            display: "flex",
+            alignItems: "center",
+            borderRadius: 5,
           }}
         >
+          <input
+            type="file"
+            ref={imageInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+          <Button onClick={handleImageClick}>
+            <Avatar
+              alt="Remy Sharp"
+              src={ava || logo}
+              sx={{ width: 100, height: 100 }}
+            />
+          </Button>
+
           <Box
             sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
+              width: 500,
             }}
           >
-            <img src={logo} alt="" width={80} />
+            <Stack direction={"row"} sx={{ marginTop: 5 }} gap={5}>
+              <TextField
+                id="standard-basic"
+                label="Họ"
+                variant="standard"
+                value={lName}
+                fullWidth
+                onChange={(e) => setLName(e.target.value)}
+              />
+              <TextField
+                id="standard-basic"
+                label="Tên"
+                variant="standard"
+                value={fName}
+                fullWidth
+                onChange={(e) => setFName(e.target.value)}
+              />
+            </Stack>
+
+            <FormControl variant="standard" fullWidth sx={{ marginTop: 2 }}>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={sex}
+                label="Age"
+                onChange={handleChange}
+              >
+                <MenuItem value={1}>Nam</MenuItem>
+                <MenuItem value={2}>Nữ</MenuItem>
+              </Select>
+            </FormControl>
+            <TextInput
+              id="standard-basic"
+              label="Sinh nhật"
+              variant="standard"
+              value={birth || "Không có"}
+              fullWidth
+              disabled
+              onChange={(e) => setBirth(e.target.value)}
+            />
+            <TextInput
+              id="standard-basic"
+              label="Địa chỉ"
+              variant="standard"
+              value={address || "Không có"}
+              fullWidth
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <TextInput
+              id="standard-basic"
+              label="Số điện thoại"
+              variant="standard"
+              value={phone}
+              fullWidth
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <TextInput
+              id="standard-basic"
+              label="Email"
+              variant="standard"
+              value={email}
+              fullWidth
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Stack
+              direction={"row"}
+              sx={{ padding: 5, justifyContent: "center" }}
+            >
+              {done ? (
+                <Button
+                  variant="outlined"
+                  sx={{
+                    width: 300,
+                    borderRadius: 5,
+                    backgroundColor: "#146C94",
+                    color: "white",
+                    ":hover": {
+                      backgroundColor: "#1c98d0",
+                    },
+                  }}
+                  onClick={handleSubmit}
+                >
+                  Cập nhật
+                </Button>
+              ) : (
+                <Box
+                  sx={{
+                    width: 300,
+                    borderRadius: 5,
+                    backgroundColor: "#146C94",
+                    color: "white",
+                    height: 40,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress color="inherit" />
+                </Box>
+              )}
+            </Stack>
           </Box>
-          <TypographyList>
-            Họ và tên: {dataUser.lastName + " " + dataUser.firstName}
-          </TypographyList>
-          <DividerBox />
-          {checkSex()}
-          <DividerBox />
-          <TypographyList>Số điện thoại: {dataUser.phone}</TypographyList>
-          <DividerBox />
-          <TypographyList>Email: {dataUser.email}</TypographyList>
-          <DividerBox />
-          <TypographyList>
-            Sinh nhật: {dataUser.dateOfBirth || "Không có"}
-          </TypographyList>
-          <DividerBox />
-          <TypographyList>
-            Địa chỉ: {dataUser.address || "Không có"}
-          </TypographyList>
-          <DividerBox />
-        </Box>
+        </Stack>
       </Stack>
     </Box>
   );

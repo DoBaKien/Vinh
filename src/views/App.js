@@ -19,7 +19,6 @@ import { AuthProvider } from "../stores/AuthContext";
 import { IconButton } from "@mui/material";
 import NorthIcon from "@mui/icons-material/North";
 import SuccessOrder from "./SuccessOrder";
-import Footer from "../components/Footer";
 import { handleTop } from "../assets/action/Action";
 import BuyNow from "./BuyNow.js";
 import FooterA from "../components/Footer/FooterA.js";
@@ -27,6 +26,7 @@ import User from "./User/User.js";
 import History from "./History/History.js";
 import Detail from "./History/Detail.js";
 import Account from "./Account/Account.js";
+import Support from "./Support/Support.js";
 
 function App() {
   const [isLog, setIsLog] = useState(false);
@@ -74,6 +74,9 @@ function App() {
             <Switch>
               <Route path="/" exact>
                 <Home />
+              </Route>
+              <Route path="/Support" exact>
+                <Support />
               </Route>
               <Route path="/User" exact>
                 <User />
