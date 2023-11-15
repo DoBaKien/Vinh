@@ -5,7 +5,7 @@ import logo from "../assets/images/logo.png";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-
+import LoginIcon from "@mui/icons-material/Login";
 const Nav = () => {
   const { isLoggedIn, searchInput, setSearchInput } = useAuth(); // Sử dụng useAuth để lấy trạng thái đăng nhập
   const history = useHistory();
@@ -127,6 +127,7 @@ const Nav = () => {
                     className="nav-link-nav mx-3 text-uppercase"
                     to="/Register"
                   >
+                    <i className="fas fa-user-alt"></i>
                     <br />
                     Đăng kí
                   </Link>
@@ -137,7 +138,8 @@ const Nav = () => {
                     className="nav-link-nav mx-3 text-uppercase"
                     to="/login"
                   >
-                    <i class="fa-solid fa-circle-user"></i> <br />
+                    <LoginIcon sx={{ fontSize: 20 }} />
+                    <br />
                     Đăng nhập
                   </Link>
                 </li>

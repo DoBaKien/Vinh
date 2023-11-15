@@ -12,6 +12,11 @@ export const ListButton = styled(ListItemButton)(() => ({
 
 export const TextMenu = styled(Typography)(() => ({
   marginBottom: 5,
+  cursor: "pointer",
+  padding: 1,
+  ":hover": {
+    color: "red",
+  },
 }));
 
 export const HtmlTooltip = styled(({ className, ...props }) => (

@@ -59,17 +59,19 @@ function User() {
               >
                 <Box>
                   <Typography variant="subtitle1">Ngày tham gia</Typography>
-                  <CalendarMonthIcon sx={{ fontSize: 60 }} />
+                  <CalendarMonthIcon sx={{ fontSize: 60, color: "#63C0EA" }} />
                   <Typography variant="subtitle1">26/2/2017</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle1">Hạng thành viên</Typography>
-                  <WorkspacePremiumIcon sx={{ fontSize: 60 }} />
+                  <WorkspacePremiumIcon
+                    sx={{ fontSize: 60, color: "#F1B69B" }}
+                  />
                   <Typography variant="subtitle1">26/2/2017</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle1">Điểm tích lũy</Typography>
-                  <PaidIcon sx={{ fontSize: 60 }} />
+                  <PaidIcon sx={{ fontSize: 60, color: "#E5A8F3" }} />
                   <Typography variant="subtitle1">20000</Typography>
                 </Box>
               </Stack>

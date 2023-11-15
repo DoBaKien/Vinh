@@ -274,7 +274,6 @@ export const dataGaming2 = [
     ],
   },
 ];
-
 export const dataTn = [
   {
     id: "Thương hiệu",
@@ -353,6 +352,88 @@ export const dataTn2 = [
     type: [
       {
         name: "Loa Gaming",
+      },
+    ],
+  },
+];
+export const dataStorage = [
+  {
+    id: "Dung lượng SSD",
+    type: [
+      {
+        name: "120GB - 128GB",
+      },
+      {
+        name: "250GB - 256GB",
+      },
+      {
+        name: "480GB - 512GB",
+      },
+    ],
+  },
+  {
+    id: "Dung lượng HDD",
+    type: [
+      {
+        name: "HDD 1TB",
+      },
+      {
+        name: "HDD 2TB",
+      },
+      {
+        name: "HDD trên 4TB",
+      },
+    ],
+  },
+  {
+    id: "Thẻ nhớ/USB",
+    type: [
+      {
+        name: "SanDisk",
+      },
+    ],
+  },
+];
+export const dataStorage2 = [
+  {
+    id: "Dung lượng RAM",
+    type: [
+      {
+        name: "8 GB",
+      },
+      {
+        name: "16 GB",
+      },
+      {
+        name: "32 GB",
+      },
+    ],
+  },
+  {
+    id: "Loại RAM",
+    type: [
+      {
+        name: "DDR4",
+      },
+      {
+        name: "DDR5",
+      },
+      {
+        name: "Xem tất cả",
+      },
+    ],
+  },
+  {
+    id: "Hãng RAM",
+    type: [
+      {
+        name: "Kington",
+      },
+      {
+        name: "Corsair",
+      },
+      {
+        name: "Xem tất cả",
       },
     ],
   },

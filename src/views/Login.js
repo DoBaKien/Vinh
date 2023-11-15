@@ -36,10 +36,7 @@ const Login = () => {
     };
 
     try {
-      const response = axios.post(
-        "http://localhost:8521/api/v1/auth/login",
-        formData
-      );
+      const response = axios.post("/api/v1/auth/login", formData);
 
       const data = await response;
       console.log(data);

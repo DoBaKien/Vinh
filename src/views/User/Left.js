@@ -15,8 +15,16 @@ import { useHistory } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuth } from "../../stores/AuthContext";
 function Left() {
   const history = useHistory();
+  const { setIsLoggedIn } = useAuth();
+
+  const handleOut = () => {
+    localStorage.removeItem("data");
+    setIsLoggedIn(false);
+    history.push("/");
+  };
 
   return (
     <Box p={1} sx={{ width: 300, bgcolor: "white", borderRadius: 5 }}>
@@ -73,7 +81,7 @@ function Left() {
           <Divider />
           <Divider />
           <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
-            <ListItemButton>
+            <ListItemButton onClick={handleOut}>
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>

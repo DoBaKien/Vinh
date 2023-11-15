@@ -8,6 +8,8 @@ import {
   dataLap2,
   dataPK,
   dataPK2,
+  dataStorage,
+  dataStorage2,
   dataTn,
   dataTn2,
 } from "../assets/action/Data";
@@ -31,6 +33,9 @@ const Hover = (props) => {
     } else if (props.data === "pc") {
       setData(dataGaming);
       setData1(dataGaming2);
+    } else if (props.data === "lt") {
+      setData(dataStorage);
+      setData1(dataStorage2);
     }
   }, []);
 
@@ -38,6 +43,7 @@ const Hover = (props) => {
     <Box
       sx={{
         width: 820,
+        paddingBottom: 3,
       }}
     >
       <Box>

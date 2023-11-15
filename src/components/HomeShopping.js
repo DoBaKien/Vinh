@@ -5,7 +5,7 @@ import Item from "./Item";
 const HomeShopping = () => {
   const [dataPhone, setDataPhone] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 10; // Number of items to display per page
+  const itemsPerPage = 9; // Number of items to display per page
   const style = [
     { top: "-6em" },
     {

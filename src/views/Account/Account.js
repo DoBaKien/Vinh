@@ -36,10 +36,26 @@ function Account() {
   };
 
   const handleSubmit = (e) => {
-    console.log(fName, lName, phone);
     axios
-      .put(`/api/v1/customer/createOrUpdate`, {})
+      .post(`/api/v1/customer/createOrUpdate`, {
+        id: dataUser.id,
+        account: dataUser.account,
+        address: address,
+        avatar: {
+          id: id || dataUser.avatar.id,
+        },
+        shoppingCart: dataUser.shoppingCart,
+        sex: sex,
+        email: email,
+        dateOfBirth: birth,
+        firstName: fName,
+        lastName: lName,
+        phone: phone,
+        customerType: "customer",
+      })
       .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("data", JSON.stringify(res.data));
         toast.success("Thành công");
       })
       .catch(function (error) {
@@ -166,7 +182,7 @@ function Account() {
               id="standard-basic"
               label="Số điện thoại"
               variant="standard"
-              value={phone}
+              value={phone || "Không có"}
               fullWidth
               onChange={(e) => setPhone(e.target.value)}
             />
@@ -174,7 +190,7 @@ function Account() {
               id="standard-basic"
               label="Email"
               variant="standard"
-              value={email}
+              value={email || "Không có"}
               fullWidth
               onChange={(e) => setEmail(e.target.value)}
             />
