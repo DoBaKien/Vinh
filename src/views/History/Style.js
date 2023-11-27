@@ -1,3 +1,5 @@
+import { Box, Grid, Stack, styled } from "@mui/material";
+
 export const CheckStatus = ({ value }) => {
   if (value === "1") {
     return <div>Đang xử lý</div>;
@@ -5,6 +7,8 @@ export const CheckStatus = ({ value }) => {
     return <div>Đang vận chuyển</div>;
   } else if (value === "3") {
     return <div>Hoàn thành</div>;
+  } else {
+    return <div>Đã hủy</div>;
   }
 };
 export const ValueDate = ({ value }) => {
@@ -27,3 +31,32 @@ export const ValueDate2 = (value) => {
   const date = `${hours}:${minutes} - ${day}/${month}/${year}`;
   return date;
 };
+export const StackNav = styled(Stack)({
+  width: "80%",
+  backgroundColor: "white",
+  justifyContent: "space-between",
+  padding: 10,
+  paddingLeft: 20,
+  paddingRight: 20,
+  borderRadius: 20,
+  border: "1px solid black",
+  marginTop: 10,
+});
+export const BoxBtn = styled(Box)({
+  backgroundColor: "white",
+  padding: 10,
+  border: "1px solid black",
+  borderRadius: 20,
+  width: "50%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: 20,
+});
+export const GridBox = styled(Grid)({
+  border: "1px solid black",
+  borderRadius: 20,
+  paddingTop: 2,
+  paddingBottom: 10,
+  backgroundColor: "white",
+});

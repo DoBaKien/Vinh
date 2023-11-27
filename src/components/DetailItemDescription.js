@@ -78,7 +78,11 @@ const DetailItemDescription = (props) => {
         >
           Giá chỉ:
         </span>
-        {dataDes && dataDes.data ? dataDes.data.price + "\tVND" : ""}
+        {dataDes && dataDes.data
+          ? dataDes.data.price
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "\tVND"
+          : ""}
       </div>
 
       <div className="promotionContainer">

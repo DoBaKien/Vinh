@@ -7,10 +7,12 @@ import SettingsInputHdmiIcon from "@mui/icons-material/SettingsInputHdmi";
 import SpeakerGroupIcon from "@mui/icons-material/SpeakerGroup";
 import SdStorageIcon from "@mui/icons-material/SdStorage";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import { HtmlTooltip, ListButton } from "../assets/style/Style";
-import Hover from "./Hover";
+import { ListButton } from "../assets/style/Style";
 
-const Menu = () => {
+const Menu = ({ hovered, setHovered, setData }) => {
+  const handleHover = () => {
+    setHovered(!hovered);
+  };
   return (
     <div style={{ width: "30%", height: "100%" }}>
       <List
@@ -23,96 +25,84 @@ const Menu = () => {
         }}
         component="nav"
       >
-        <HtmlTooltip
-          placement="right-start"
-          title={
-            <React.Fragment>
-              <Hover data="laptop" />
-            </React.Fragment>
-          }
+        <ListButton
+          onMouseEnter={() => {
+            setHovered(true);
+            setData("laptop");
+          }}
+          onMouseLeave={handleHover}
         >
-          <ListButton>
-            <ListItemIcon>
-              <LaptopChromebookIcon />
-            </ListItemIcon>
-            <ListItemText primary="Laptop" />
-          </ListButton>
-        </HtmlTooltip>
-        <HtmlTooltip
-          placement="right-start"
-          title={
-            <React.Fragment>
-              <Hover data="pc" />
-            </React.Fragment>
-          }
+          <ListItemIcon>
+            <LaptopChromebookIcon />
+          </ListItemIcon>
+          <ListItemText primary="Laptop" />
+        </ListButton>
+
+        <ListButton
+          onMouseEnter={() => {
+            setHovered(true);
+            setData("main");
+          }}
+          onMouseLeave={handleHover}
         >
-          <ListButton>
-            <ListItemIcon>
-              <LaptopIcon />
-            </ListItemIcon>
-            <ListItemText primary="Máy tính để bàn" />
-          </ListButton>
-        </HtmlTooltip>
-        <HtmlTooltip
-          placement="right-start"
-          title={
-            <React.Fragment>
-              <Hover data="pk" />
-            </React.Fragment>
-          }
+          <ListItemIcon>
+            <LaptopIcon />
+          </ListItemIcon>
+          <ListItemText primary="Main, CPU, VGA" />
+        </ListButton>
+
+        <ListButton
+          onMouseEnter={() => {
+            setHovered(true);
+            setData("case");
+          }}
+          onMouseLeave={handleHover}
         >
-          <ListButton>
-            <ListItemIcon>
-              <SettingsInputHdmiIcon />
-            </ListItemIcon>
-            <ListItemText primary="Phụ kiện công nghệ" />
-          </ListButton>
-        </HtmlTooltip>
-        <HtmlTooltip
-          placement="right-start"
-          title={
-            <React.Fragment>
-              <Hover data="loa" />
-            </React.Fragment>
-          }
+          <ListItemIcon>
+            <SettingsInputHdmiIcon />
+          </ListItemIcon>
+          <ListItemText primary="Case, Nguồn" />
+        </ListButton>
+
+        <ListButton
+          onMouseEnter={() => {
+            setHovered(true);
+            setData("SSD");
+          }}
+          onMouseLeave={handleHover}
         >
-          <ListButton>
-            <ListItemIcon>
-              <SpeakerGroupIcon />
-            </ListItemIcon>
-            <ListItemText primary="Tai nghe và loa" />
-          </ListButton>
-        </HtmlTooltip>
-        <HtmlTooltip
-          placement="right-start"
-          title={
-            <React.Fragment>
-              <Hover data="lt" />
-            </React.Fragment>
-          }
+          <ListItemIcon>
+            <SpeakerGroupIcon />
+          </ListItemIcon>
+          <ListItemText primary="SSD, RAM" />
+        </ListButton>
+
+        <ListButton
+          onMouseEnter={() => {
+            setHovered(true);
+            setData("loa");
+          }}
+          onMouseLeave={handleHover}
         >
-          <ListButton>
-            <ListItemIcon>
-              <SdStorageIcon />
-            </ListItemIcon>
-            <ListItemText primary="Thiết bị lưu trữ" />
-          </ListButton>
-        </HtmlTooltip>
-        <HtmlTooltip
-          placement="right-start"
-          title={
-            <React.Fragment>
-              <Hover data="game" />
-            </React.Fragment>
-          }
+          <ListItemIcon>
+            <SdStorageIcon />
+          </ListItemIcon>
+          <ListItemText primary="Tai nghe, Loa" />
+        </ListButton>
+
+        <ListButton
+          sx={{ marginBottom: 0 }}
+          onMouseEnter={() => {
+            setHovered(true);
+            setData("Key");
+          }}
+          onMouseLeave={handleHover}
         >
-          <ListButton sx={{ marginBottom: 0 }}>
-            <ListItemIcon>
-              <SportsEsportsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Gaming" />
-          </ListButton>
-        </HtmlTooltip>
+          <ListItemIcon>
+            <SportsEsportsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Chuột, Bàn Phím, Màn hình" />
+        </ListButton>
       </List>
     </div>
   );

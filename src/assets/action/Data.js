@@ -1,85 +1,94 @@
+//main
 export const dataPK = [
   {
-    id: "Thiết bị Streaming",
+    id: "CPU - Bộ vi xử lý",
     type: [
       {
-        name: "x-box",
+        name: "CPU Intel 14th",
       },
       {
-        name: "ps4",
+        name: "CPU Intel",
+      },
+      {
+        name: "CPU AMD",
       },
     ],
   },
   {
-    id: "Asus ROG",
+    id: "Bo mạch chủ Intel",
     type: [
       {
-        name: "ROG Phone",
+        name: "H510",
       },
       {
-        name: "Máy chơi game cầm tay",
+        name: "B660",
+      },
+      {
+        name: "Z690",
       },
     ],
   },
   {
-    id: "Microphone",
+    id: "Bo mạch chủ AMD",
     type: [
       {
-        name: "Razer",
+        name: "AMD X670",
       },
       {
-        name: "HyperX",
+        name: "AMD X570",
       },
       {
-        name: "Thronmax",
+        name: "AMD B650",
       },
     ],
   },
 ];
+//main
 export const dataPK2 = [
   {
-    id: "Webcam",
+    id: "VGA - Card màn hình",
     type: [
       {
-        name: "720p",
+        name: "RTX 3050",
       },
       {
-        name: "1080p",
+        name: "RTX 3060",
       },
       {
-        name: "4K",
+        name: "RTX 4060",
       },
     ],
   },
   {
-    id: "Tay cầm",
+    id: "VGA",
     type: [
       {
-        name: "X-Box",
+        name: "GTX 1660 Supper",
       },
       {
-        name: "MSI",
+        name: "GTX 1650",
       },
       {
-        name: "PS4",
+        name: "GT 710",
       },
     ],
   },
   {
-    id: "Cổng chuyển",
+    id: "VGA",
     type: [
       {
-        name: "Rain Design",
+        name: "AMD RX 5600 XT",
       },
       {
-        name: "Mazer",
+        name: "AMD RX 5700",
       },
       {
-        name: "Ugreen",
+        name: "AMD RX 5700 XT",
       },
     ],
   },
 ];
+
 export const dataLap = [
   {
     id: "Thương hiệu",
@@ -92,12 +101,6 @@ export const dataLap = [
       },
       {
         name: "MSI",
-      },
-      {
-        name: "LENOVO",
-      },
-      {
-        name: "DELL",
       },
     ],
   },
@@ -143,9 +146,6 @@ export const dataLap2 = [
       {
         name: "Mỏng nhẹ cao cấp",
       },
-      {
-        name: "Studio RTX 40 Series",
-      },
     ],
   },
   {
@@ -174,102 +174,64 @@ export const dataLap2 = [
     ],
   },
 ];
+//Case
 export const dataGaming = [
   {
-    id: "Intel Core i9",
+    id: "Case - Theo hãng",
     type: [
       {
-        name: "i9-14900K/RTX 4090",
+        name: "Case ASUS",
       },
       {
-        name: "i9-14900K/RTX 4080",
+        name: "Case Corsair",
       },
       {
-        name: "i9-14900K/RTX 4070 Ti",
-      },
-      {
-        name: "i9-14900K/RTX 4060 Ti",
+        name: "Case Lianli",
       },
     ],
   },
   {
-    id: " Intel Core i7",
+    id: "Case - Theo giá",
     type: [
       {
-        name: "i7-13700K/RTX 4080",
+        name: "Dưới 1 triệu",
       },
       {
-        name: "i7-13700K/RTX 4070",
+        name: "Từ 1 triệu đến 2 triệu",
       },
       {
-        name: "i7-13700K/RTX 4060 Ti",
-      },
-      {
-        name: "i7-13700K/RTX 3060 Ti",
-      },
-    ],
-  },
-  {
-    id: "Intel Core i5",
-    type: [
-      {
-        name: "i5-13600K/RTX 4070",
-      },
-      {
-        name: "i5-13600K/RTX 4060",
-      },
-      {
-        name: "i5-13600K/RTX 4060 Ti",
-      },
-      {
-        name: "i5-13600K/RTX 3060 Ti",
+        name: "Trên 2 triệu",
       },
     ],
   },
 ];
+//Case
 export const dataGaming2 = [
   {
-    id: "AMD R9",
+    id: "Nguồn - Theo Hãng",
     type: [
       {
-        name: "R9-7950X/RTX 4090",
+        name: "Nguồn ASUS",
       },
       {
-        name: "R9-7900X/RTX 4080",
+        name: "Nguồn DeepCool",
       },
       {
-        name: "R9-5950X/RTX 4070 Ti",
-      },
-      {
-        name: "R9-7900X/RTX 3060",
+        name: "Nguồn Corsair",
       },
     ],
   },
   {
-    id: "AMD R7",
+    id: "Nguồn - Theo công suất",
     type: [
       {
-        name: "R7-7950X/RTX 4080",
+        name: "Từ 400w - 500w",
       },
       {
-        name: "R7-5950X/RTX 4070 Ti",
+        name: "Từ 500w -600w",
       },
       {
-        name: "R7-7900X/RTX 3060",
-      },
-    ],
-  },
-  {
-    id: " AMD R5",
-    type: [
-      {
-        name: "R5-7600X/RTX 4060",
-      },
-      {
-        name: "R5-7600X/RTX 3060",
-      },
-      {
-        name: "R5-7600X/RTX 3050",
+        name: "Từ 700w - 800w",
       },
     ],
   },
@@ -434,6 +396,94 @@ export const dataStorage2 = [
       },
       {
         name: "Xem tất cả",
+      },
+    ],
+  },
+];
+export const dataLK = [
+  {
+    id: "Chuột - Theo hãng",
+    type: [
+      {
+        name: "ASUS",
+      },
+      {
+        name: "Logitech",
+      },
+      {
+        name: "Razer",
+      },
+    ],
+  },
+  {
+    id: "Chuột - Theo giá tiền",
+    type: [
+      {
+        name: "Dưới 500 nhìn",
+      },
+      {
+        name: "Từ 500 - 1 triệu",
+      },
+      {
+        name: "Hơn 1 triệu",
+      },
+    ],
+  },
+  {
+    id: "Bán phím - Theo hãng",
+    type: [
+      {
+        name: "ASUS",
+      },
+      {
+        name: "AKKO",
+      },
+      {
+        name: "Logitech",
+      },
+    ],
+  },
+];
+export const dataLK2 = [
+  {
+    id: "Bán phím - Theo giá tiền",
+    type: [
+      {
+        name: "Dưới 1 triệu",
+      },
+      {
+        name: "Từ 1 - 3 triệu",
+      },
+      {
+        name: "Trên 3 triệu",
+      },
+    ],
+  },
+  {
+    id: "Màn hình - Theo hãng",
+    type: [
+      {
+        name: "LG",
+      },
+      {
+        name: "ASUS",
+      },
+      {
+        name: "Dell",
+      },
+    ],
+  },
+  {
+    id: "Màn hình - Theo giá tiền",
+    type: [
+      {
+        name: "Dưới 5 triệu",
+      },
+      {
+        name: "Từ 5 - 10 triệu",
+      },
+      {
+        name: "Trên 10 triệu",
       },
     ],
   },

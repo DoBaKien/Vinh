@@ -48,7 +48,7 @@ function History() {
   const datatable = () => {
     if (Array.isArray(data) && data.length !== 0) {
       return (
-        <Box height="80vh" width="99%">
+        <Box height="70vh" width="99%">
           <DataGrid
             rowHeight={50}
             rows={data.map((item) => ({
@@ -78,6 +78,7 @@ function History() {
             onCellDoubleClick={handleOnCellClick}
             getRowHeight={() => "auto"}
             sx={{
+              backgroundColor: "white",
               "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
                 py: 1,
               },

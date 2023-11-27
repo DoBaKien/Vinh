@@ -54,7 +54,6 @@ function Account() {
         customerType: "customer",
       })
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("data", JSON.stringify(res.data));
         toast.success("Thành công");
       })

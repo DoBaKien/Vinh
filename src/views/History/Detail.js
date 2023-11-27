@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   CircularProgress,
   Grid,
   Paper,
@@ -9,26 +10,32 @@ import {
 import Left from "../User/Left";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ValueDate2 } from "./Style";
+import { BoxBtn, GridBox, StackNav, ValueDate2 } from "./Style";
 import { DataGrid } from "@mui/x-data-grid";
 import { useParams } from "react-router-dom";
 
 function Detail() {
   const [data, setData] = useState("");
-
-  const id = useParams();
+  const [sum, setSum] = useState("");
+  const idO = useParams();
 
   useEffect(() => {
     axios
-      .get(`/api/v1/orders/getOrderById/${id.id}`)
+      .get(`/api/v1/orders/getOrderById/${idO.id}`)
       .then(function (response) {
         console.log(response.data);
         setData(response.data);
+        setSum(
+          response.data.orderDetails.reduce(
+            (acc, item) => acc + item.product.price * item.quantity,
+            0
+          )
+        );
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [id.id]);
+  }, [idO.id]);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -51,38 +58,107 @@ function Detail() {
   ];
   const checkS = (value) => {
     if (value === "1") {
-      return (
-        <Typography variant="subtitle1">Trạng thái: Đang xử lý </Typography>
-      );
+      return "Đang xử lý ";
     } else if (value === "2") {
-      return (
-        <Typography variant="subtitle1">Trạng thái: Đang vận chuyển</Typography>
-      );
+      return "Đang vận chuyển";
     } else if (value === "3") {
+      return "Hoàn thành";
+    } else {
+      return "Đã hủy";
+    }
+  };
+
+  const BoxNav = () => {
+    if (data.statusOrder.charAt(0) === "0") {
       return (
-        <Typography variant="subtitle1">Trạng thái: Hoàn thành</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <BoxBtn sx={{ display: "block", paddingLeft: 3 }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", textDecoration: "underline" }}
+            >
+              Lý do
+            </Typography>
+            <Typography>{data.statusOrder.substring(1)}</Typography>
+          </BoxBtn>
+        </Box>
+      );
+    } else if (data.statusOrder !== "3") {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <BoxBtn gap={10} sx={{ width: 200 }}>
+            <Button variant="contained" color="error">
+              Hủy đơn
+            </Button>
+          </BoxBtn>
+        </Box>
       );
     }
   };
+
   const checkData = () => {
     if (data !== "") {
       return (
-        <Paper sx={{ flex: 1, mx: "auto", width: "95%", p: 1 }}>
+        <Paper
+          sx={{
+            flex: 1,
+            mx: "auto",
+            width: "97%",
+            p: 1,
+            backgroundColor: "#E3EFFD",
+          }}
+        >
           <Stack direction="column" spacing={1} sx={{ height: 1 }}>
-            <Typography variant="h6">{`Hóa đơn ${id.id}`}</Typography>
-            <Stack direction={"row"} sx={{ gap: 20 }}>
-              {checkS(data.statusOrder)}
-              <Typography variant="subtitle1">
-                {/* Tổng hóa đơn: {sum.toFixed(2)} */}
-              </Typography>
-              <Typography variant="subtitle1">
-                Ngày lập: {ValueDate2(data.date)}
-              </Typography>
-            </Stack>
-
-            <Grid container sx={{ paddingLeft: 2, paddingRight: 2 }}>
-              <Grid item md={6}>
-                <Typography variant="body2" color="textSecondary">
+            <Typography
+              variant="h4"
+              sx={{ textAlign: "center" }}
+            >{`Hóa đơn ${idO.id}`}</Typography>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <StackNav direction={"row"}>
+                <Typography variant="subtitle1">
+                  Trạng thái: {checkS(data.statusOrder)}
+                </Typography>
+                <Typography variant="subtitle1">
+                  Tổng hóa đơn:{" "}
+                  {sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                </Typography>
+                <Typography variant="subtitle1">
+                  Ngày lập: {ValueDate2(data.date)}
+                </Typography>
+              </StackNav>
+            </Box>
+            <BoxNav />
+            <Grid
+              container
+              sx={{ justifyContent: "space-between", padding: 3 }}
+            >
+              <GridBox
+                item
+                md={4}
+                sx={{
+                  paddingLeft: 2,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", textDecoration: "underline" }}
+                >
                   Thông tin khách hàng
                 </Typography>
                 <Typography variant="body1">
@@ -91,32 +167,37 @@ function Detail() {
                 <Typography variant="body1">{data.customer.email}</Typography>
                 <Typography variant="body1">{data.customer.phone}</Typography>
                 <Box sx={{ marginTop: 2 }}>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography
+                    variant="h6"
+                    sx={{ fontWeight: "bold", textDecoration: "underline" }}
+                  >
                     Ghi chú
                   </Typography>
-                  <Typography>{data.note}</Typography>
+                  <Typography>{data.note || "không có"}</Typography>
                 </Box>
-              </Grid>
+              </GridBox>
 
               {data.employee !== null ? (
-                <Grid item md={6}>
+                <GridBox item md={3} sx={{ paddingRight: 2 }}>
                   <Typography
-                    variant="body2"
+                    variant="h6"
                     align="right"
-                    color="textSecondary"
+                    sx={{ fontWeight: "bold", textDecoration: "underline" }}
                   >
                     Nhân viên
                   </Typography>
                   <Typography variant="body1" align="right">
-                    {data.employee.id}
+                    {data.employee.id || "Id"}
                   </Typography>
                   <Typography variant="body1" align="right">
-                    {data.employee.lastName + " " + data.employee.firstName}
+                    {data.employee !== ""
+                      ? data.employee.lastName + " " + data.employee.firstName
+                      : "Tên"}
                   </Typography>
                   <Typography align="right" variant="body1">
-                    {data.employee.email}
+                    {data.employee !== "" ? data.employee.email : "Email"}
                   </Typography>
-                </Grid>
+                </GridBox>
               ) : null}
             </Grid>
             {data !== "" ? (
@@ -134,7 +215,7 @@ function Detail() {
                   quantity: item.quantity,
                 }))}
                 columns={columns}
-                sx={{ flex: 1 }}
+                sx={{ flex: 1, backgroundColor: "white" }}
                 hideFooter
               />
             ) : (

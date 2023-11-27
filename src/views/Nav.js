@@ -17,6 +17,13 @@ const Nav = () => {
     console.log("value in nav", searchValue);
     history.push("/Shopping", { searchValue });
   };
+
+  const handleKeyDown = (event) => {
+    let searchValue = searchInput;
+    if (event.key === "Enter") {
+      history.push("/Shopping", { searchValue });
+    }
+  };
   // const handleCheckOut = () => {
   //   const listCheckout = cart
   //     .filter((item) => selectedItems[item.id])
@@ -72,6 +79,7 @@ const Nav = () => {
                 value={searchInput}
                 className="form-control border-primary"
                 onChange={(e) => setSearchInput(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
               <button
                 className="btn btn-primary text-white"
@@ -88,10 +96,9 @@ const Nav = () => {
                 className="nav-link-nav mx-3 text-uppercase"
                 href="#"
               >
-                <i class="fas fa-truck" style={{ marginRight: "5px" }}></i>
+                <i class="fas fa-list" style={{ marginRight: "5px" }}></i>
                 <br />
-                TRA CỨU
-                <span style={{ marginLeft: "5px" }}></span> ĐƠN HÀNG
+                Sản phẩm
               </Link>
             </li>
 

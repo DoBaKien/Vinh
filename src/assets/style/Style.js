@@ -1,4 +1,4 @@
-import { ListItemButton, Typography, styled } from "@mui/material";
+import { Box, ListItemButton, Typography, styled } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 export const ListButton = styled(ListItemButton)(() => ({
@@ -30,4 +30,13 @@ export const HtmlTooltip = styled(({ className, ...props }) => (
     fontSize: theme.typography.pxToRem(12),
     border: "1px solid #dadde9",
   },
+}));
+
+export const BoxMenu = styled(Box)(() => ({
+  flexDirection: "row",
+  display: "flex",
+  height: "50%",
+  margin: 10,
+  flex: 1,
+  marginLeft: 33,
 }));
