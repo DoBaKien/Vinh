@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import thum1 from "../assets/images/thumbai_1.png";
 import thum2 from "../assets/images/thumbai_2.png";
 import thum3 from "../assets/images/thumbai_3.png";
-import { Box } from "@mui/material";
 
 const slides = [
   {
@@ -23,7 +22,7 @@ const slides = [
   },
 ];
 
-const Slider = ({ hovered, setHovered }) => {
+const Slider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {

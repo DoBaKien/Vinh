@@ -117,7 +117,12 @@ function BuyNow() {
                   <Typography gutterBottom variant="h5" component="div">
                     Hãng: {data.brand.name || ""}
                   </Typography>
-                  <Typography variant="h6">Đơn giá :{data.price}</Typography>
+                  <Typography variant="h6">
+                    Đơn giá:{" "}
+                    {data.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </Typography>
                   <Stack
                     direction={"row"}
                     sx={{ display: "flex", alignItems: "center", marginTop: 2 }}
@@ -195,7 +200,9 @@ function BuyNow() {
               </Box>
               <Box width={180}>
                 <Typography variant="h5">
-                  {(data.price * quantity).toFixed(2)}
+                  {(data.price * quantity)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </Typography>
               </Box>
             </Stack>
@@ -232,7 +239,9 @@ function BuyNow() {
               >
                 <Typography variant="h5">Tổng số tiền</Typography>
                 <Typography variant="h5">
-                  {(data.price * quantity).toFixed(2)}
+                  {(data.price * quantity)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </Typography>
               </Stack>
             </Box>

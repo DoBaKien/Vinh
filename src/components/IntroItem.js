@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/IntroItem.scss";
-import "react-quill/dist/quill.snow.css";
+
 import axios from "axios";
 
 const IntroItem = (props) => {

@@ -13,12 +13,14 @@ import axios from "axios";
 import { BoxBtn, GridBox, StackNav, ValueDate2 } from "./Style";
 import { DataGrid } from "@mui/x-data-grid";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Detail() {
   const [data, setData] = useState("");
   const [sum, setSum] = useState("");
   const idO = useParams();
-
+  const userId = JSON.parse(localStorage.getItem("data"));
+  console.log(userId);
   useEffect(() => {
     axios
       .get(`/api/v1/orders/getOrderById/${idO.id}`)
@@ -68,6 +70,51 @@ function Detail() {
     }
   };
 
+  const handleError = () => {
+    Swal.fire({
+      title: "Điền lý do hủy",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Đồng ý",
+      reverseButtons: "true",
+      cancelButtonText: "Hủy",
+      preConfirm: async (login) => {
+        const stt = "0" + login;
+        if (login !== "") {
+          axios
+            .post(`/api/v1/orders/updateStatus/${userId.id}`, [
+              {
+                statusOrder: stt,
+                id: idO.id,
+              },
+            ])
+            .then(function (response) {
+              Swal.fire({
+                title: "Thành công",
+                icon: "success",
+              });
+              axios
+                .get(`/api/v1/orders/getOrderById/${idO.id}`)
+                .then((res) => {
+                  setData(res.data);
+                })
+                .catch((error) => console.log(error));
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          Swal.fire({
+            title: "Vui lòng điền lý do",
+            icon: "error",
+          });
+        }
+      },
+    });
+  };
   const BoxNav = () => {
     if (data.statusOrder.charAt(0) === "0") {
       return (
@@ -97,7 +144,7 @@ function Detail() {
           }}
         >
           <BoxBtn gap={10} sx={{ width: 200 }}>
-            <Button variant="contained" color="error">
+            <Button variant="contained" color="error" onClick={handleError}>
               Hủy đơn
             </Button>
           </BoxBtn>

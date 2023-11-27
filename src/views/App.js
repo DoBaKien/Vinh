@@ -5,7 +5,7 @@ import Login from "../views/Login.js";
 import { ToastContainer } from "react-toastify";
 import ForgotPass from "./ForgotPass";
 import "react-toastify/dist/ReactToastify.css";
-import Information from "../components/Information";
+
 import Shopping from "./Shopping";
 import DetailItem from "../components/DetaiItem";
 import Cart from "./Cart";
@@ -27,6 +27,7 @@ import History from "./History/History.js";
 import Detail from "./History/Detail.js";
 import Account from "./Account/Account.js";
 import Support from "./Support/Support.js";
+import Find from "./Find/Find.js";
 
 function App() {
   const [isLog, setIsLog] = useState(false);
@@ -78,6 +79,9 @@ function App() {
               <Route path="/Support" exact>
                 <Support />
               </Route>
+              <Route path="/Find/:id" exact>
+                <Find />
+              </Route>
               <Route path="/User" exact>
                 <User />
               </Route>
@@ -105,9 +109,7 @@ function App() {
               <Route path="/ForgotPass">
                 <ForgotPass />
               </Route>
-              <Route path="/Info">
-                <Information />
-              </Route>
+
               <Route path="/Shopping" exact>
                 <Shopping />
               </Route>

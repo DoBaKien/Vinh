@@ -72,7 +72,12 @@ const Item = (props) => {
                   fontWeight: "bold",
                 }}
               >
-                {data.children ? data.children.price : 0} <span>VND </span>
+                {data.children
+                  ? data.children.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                  : 0}{" "}
+                <span>VND </span>
               </span>
             </div>
 

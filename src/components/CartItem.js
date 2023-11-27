@@ -82,6 +82,18 @@ const CartItem = (props) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/v1/shoppingCartDetails/delete/${item.id}`);
+
+      props.updateCart();
+      toast.success("Xóa sản phẩm khỏi giỏ hàng thành công");
+    } catch (error) {
+      console.error(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
+    }
+  };
+
   return (
     <div className="row">
       <div className="col-lg-1 col-md-12 mb-4 mb-lg-0">
@@ -107,7 +119,7 @@ const CartItem = (props) => {
         <button
           type="button"
           className="btn btn-primary btn-sm me-1 mb-2"
-          onClick={props.removeItemCart}
+          onClick={handleDelete}
         >
           <i className="fas fa-trash"></i>
         </button>
@@ -143,7 +155,9 @@ const CartItem = (props) => {
         </div>
 
         <p className="text-start text-md-center">
-          <strong>{price.toFixed(2)} VND</strong>
+          <strong>
+            {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VND
+          </strong>
         </p>
       </div>
       <hr className="my-4" />

@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Stack, Typography, styled } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import {
   dataGaming,
   dataGaming2,

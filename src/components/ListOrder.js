@@ -8,7 +8,7 @@ const ListOrder = () => {
   const [listOrder, setListOrder] = useState([]);
   const [user, setUser] = useState(null);
   const [showOrderDetail, setShowOrderDetail] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -36,10 +36,6 @@ const ListOrder = () => {
 
   const handleViewOrderDetail = (order) => {
     history.push(`/OrderDetail/${order.id}`, { orderData: order });
-  };
-  const handleShowOrderDetail = (order) => {
-    setShowOrderDetail(true);
-    setSelectedOrder(order);
   };
 
   useEffect(() => {
@@ -140,11 +136,8 @@ const ListOrder = () => {
           </div>
         </div>
       ))}
-      {showOrderDetail && selectedOrder && (
-        <OrderDetail
-          order={selectedOrder}
-          setShowOrderDetail={setShowOrderDetail}
-        />
+      {showOrderDetail && (
+        <OrderDetail setShowOrderDetail={setShowOrderDetail} />
       )}
     </div>
   );
