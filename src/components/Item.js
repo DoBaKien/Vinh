@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { handleTop } from "../assets/action/Action";
 
-const Item = (props) => {
+function Item(props) {
   const [data, setData] = useState(props);
   const [img, setImg] = useState();
   const history = useHistory();
-
+  const [das, setDas] = useState("");
   // =============
 
   useEffect(() => {
@@ -16,10 +16,18 @@ const Item = (props) => {
       : setImg(
           "https://media.istockphoto.com/id/936182806/vi/vec-to/kh%C3%B4ng-c%C3%B3-d%E1%BA%A5u-hi%E1%BB%87u-h%C3%ACnh-%E1%BA%A3nh-kh%E1%BA%A3-d%E1%BB%A5ng.jpg?s=612x612&w=0&k=20&c=AqTYDe8XDlTT4HlkKmWrI57391QNOV0zZeC7u8TKYiE="
         );
-
     setData(props);
+
+    if (props.children.sale !== null) {
+      setDas(
+        props.children.price -
+          props.children.price * (props.children.sale.discount / 100)
+      );
+    } else {
+      setDas(props.children.price);
+    }
   }, [props]);
-  console.log(props.children);
+  console.log(das);
   const handleView = () => {
     const currentPath = window.location.pathname;
     const newPath = `/Shopping/${data.children.id}`;
@@ -52,12 +60,10 @@ const Item = (props) => {
                 style={{ textDecoration: "none", fontSize: 16 }}
                 onClick={() => handleView()}
               >
-                {data.children.sale.discount} %
+                {props.children.sale.discount || ""} %
               </div>
             </div>
-          ) : (
-            ""
-          )}
+          ) : null}
 
           <div class="card-body">
             <h5 class="card-title">
@@ -65,7 +71,7 @@ const Item = (props) => {
                 style={{ fontSize: 20, fontWeight: "bold" }}
                 onClick={() => handleView()}
               >
-                {data.children ? data.children.productName : ""}
+                {props.children ? props.children.productName : ""}
               </div>
             </h5>
 
@@ -77,10 +83,8 @@ const Item = (props) => {
                   fontWeight: "bold",
                 }}
               >
-                {data.children
-                  ? data.children.price
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                {props.children
+                  ? das.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
                   : 0}{" "}
                 <span>VND </span>
               </span>
@@ -102,6 +106,6 @@ const Item = (props) => {
       </div>
     </div>
   );
-};
+}
 
 export default Item;

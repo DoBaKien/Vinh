@@ -8,6 +8,13 @@ import ConfirmOrder from "./Forms/ConfirmOrder";
 import CheckoutItem from "../components/CheckoutItem";
 // import Address from "../components/Address";
 import FormCheckOut from "./Forms/FormCheckOut";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 const CheckOut = (props) => {
   const [cart, setCart] = useState([]);
 
@@ -19,9 +26,12 @@ const CheckOut = (props) => {
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [note, setNote] = useState("");
-
   const [popupVisible, setPopupVisible] = useState(false);
+  const [value, setValue] = useState("Thanh toán khi nhận hàng");
 
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
   useEffect(() => {
     setCartId(props.location.state.listCheckout);
   }, [props.location.state.listCheckout]);
@@ -69,12 +79,13 @@ const CheckOut = (props) => {
 
   // =========tạo order
   const handleConfirm = async () => {
-    // Prepare the order details as specified
     const orderData = {
       note,
       customer: {
         id: user.id, // Replace with actual customer ID
       },
+      paymentType: value,
+      statusPayment: value === "Thanh toán khi nhận hàng" ? 0 : 1,
       orderDetails: cart.map((item) => ({
         quantity: item.quantity,
         product: {
@@ -90,13 +101,26 @@ const CheckOut = (props) => {
       )
       .then((res) => {
         console.log("đơn hàng đã được tạo:", res.data);
-        toast.success(`bạn đã tạo đơn hàng thành công`);
-        history.push("/SuccessOrder");
+        if (value === "Thanh toán khi nhận hàng") {
+          toast.success(`bạn đã tạo đơn hàng thành công`);
+          history.push("/SuccessOrder");
+        } else {
+          axios
+            .post("/api/v1/payments/paymentWithVNPAY", {
+              idOrder: res.data.id,
+              price: total,
+            })
+            .then(function (response) {
+              window.open(response.data.url, "_self");
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
       })
       .catch((error) => {
         // Xử lý khi có lỗi xảy ra
         toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
-
         console.log(error);
       });
   };
@@ -119,6 +143,9 @@ const CheckOut = (props) => {
       console.error(error);
       return null;
     }
+  };
+  const handleCheckOut = () => {
+    setPopupVisible(true);
   };
 
   return (
@@ -168,19 +195,41 @@ const CheckOut = (props) => {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">
+                Phương thức thanh toán
+              </FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={value}
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  value="Thanh toán khi nhận hàng"
+                  control={<Radio />}
+                  label="Thanh toán khi nhận hàng"
+                />
+                <FormControlLabel
+                  value="Thanh toán online"
+                  control={<Radio />}
+                  label="Thanh toán online"
+                />
+              </RadioGroup>
+            </FormControl>
+            <div className="row" style={{ marginTop: 20 }}>
               <button
                 className="w-100 btn btn-danger btn-lg"
                 type="submit"
-                onClick={() => setPopupVisible(true)} // Show the popup
+                onClick={handleCheckOut} // Show the popup
               >
-                Continue to checkout
+                Tiếp tục để thanh toán
               </button>
             </div>
             {popupVisible && (
               <ConfirmOrder
                 cart={cart}
-                // isConfirming={isConfirming}
+                value={value}
                 handleConfirm={handleConfirm}
                 setPopupVisible={setPopupVisible}
                 user={user}

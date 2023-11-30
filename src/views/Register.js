@@ -60,11 +60,6 @@ const Register = () => {
       return;
     }
 
-    var idTemp = await axios.get(
-      "http://localhost:8521/api/v1/customer/randomId"
-    );
-    console.log(idTemp);
-
     axios
       .post("http://localhost:8521/api/v1/auth/register", {
         email: email,
@@ -75,7 +70,6 @@ const Register = () => {
       .then((response) => {
         const account = { id: response.data.id };
         const customerData = {
-          id: idTemp.data,
           firstName,
           lastName,
           email,
@@ -84,11 +78,9 @@ const Register = () => {
           phone,
           address,
           account,
-          customerType: "customer",
           avatar: null,
         };
 
-        console.log(customerData);
         axios
           .post(
             "http://localhost:8521/api/v1/customer/createOrUpdate",

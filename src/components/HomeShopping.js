@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Item from "./Item";
+import { Button } from "@mui/material";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const HomeShopping = () => {
   const [dataPhone, setDataPhone] = useState([]);
@@ -12,17 +14,7 @@ const HomeShopping = () => {
       bottom: "270px",
     },
   ];
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - itemsPerPage);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentIndex < dataPhone.length - itemsPerPage) {
-      setCurrentIndex(currentIndex + itemsPerPage);
-    }
-  };
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchData() {
@@ -55,25 +47,14 @@ const HomeShopping = () => {
             </div>
           ))}
         </div>
-        <div className="row">
-          <div className="col-md-6 text-end">
-            <button
-              className="btn btn-primary"
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-            >
-              Previous
-            </button>
-          </div>
-          <div className="col-md-6">
-            <button
-              className="btn btn-primary"
-              onClick={handleNext}
-              disabled={currentIndex >= dataPhone.length - itemsPerPage}
-            >
-              Next
-            </button>
-          </div>
+        <div className="row" style={{ display: "flex", marginBottom: 2 }}>
+          <Button
+            variant="outlined"
+            sx={{ color: "black", backgroundColor: "white" }}
+            onClick={() => history.push("/Shopping")}
+          >
+            Xem tất cả ....
+          </Button>
         </div>
       </div>
     </section>

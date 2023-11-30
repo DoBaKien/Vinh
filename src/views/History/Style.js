@@ -11,6 +11,15 @@ export const CheckStatus = ({ value }) => {
     return <div>Đã hủy</div>;
   }
 };
+export const CheckStatusPay = ({ value }) => {
+  if (value === 0) {
+    return <div>Chưa thanh toán</div>;
+  } else if (value === 1) {
+    return <div>Đã thanh toán</div>;
+  } else {
+    <div>""</div>;
+  }
+};
 export const ValueDate = ({ value }) => {
   const dateObject = new Date(value);
   const day = dateObject.getDate(); // Lấy ngày

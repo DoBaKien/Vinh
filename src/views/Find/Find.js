@@ -13,25 +13,12 @@ function Find() {
   const { id } = useParams();
 
   const [dataPhone, setDataPhone] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 9; // Number of items to display per page
   const style = [
     { top: "-6em" },
     {
       bottom: "270px",
     },
   ];
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - itemsPerPage);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentIndex < dataPhone.length - itemsPerPage) {
-      setCurrentIndex(currentIndex + itemsPerPage);
-    }
-  };
 
   useEffect(() => {
     async function fetchData() {
@@ -41,8 +28,7 @@ function Find() {
         );
         let data = res && res.data ? res.data : [];
 
-        const result = data.filter((item) => item.category.categoryName === id);
-        setDataPhone(result);
+        setDataPhone(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -50,11 +36,6 @@ function Find() {
 
     fetchData();
   }, [id]);
-
-  const displayedItems = dataPhone.slice(
-    currentIndex,
-    currentIndex + itemsPerPage
-  );
 
   const Itemas = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -103,31 +84,11 @@ function Find() {
           </Grid>
         </div>
         <div className="row" style={{ marginTop: 20 }}>
-          {displayedItems.map((item, index) => (
+          {dataPhone.map((item, index) => (
             <div className="col-md-4 mb-5" key={index}>
               <Item children={item} style={style} />
             </div>
           ))}
-        </div>
-        <div className="row">
-          <div className="col-md-6 text-end">
-            <button
-              className="btn btn-primary"
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-            >
-              Previous
-            </button>
-          </div>
-          <div className="col-md-6">
-            <button
-              className="btn btn-primary"
-              onClick={handleNext}
-              disabled={currentIndex >= dataPhone.length - itemsPerPage}
-            >
-              Next
-            </button>
-          </div>
         </div>
       </div>
     </section>

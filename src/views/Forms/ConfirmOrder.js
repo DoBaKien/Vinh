@@ -1,8 +1,9 @@
 import React from "react";
 import "../../styles/ConfirmOrder.scss";
+import { Stack } from "@mui/material";
 const ConfirmOrder = ({
   cart,
-
+  value,
   setPopupVisible,
   user,
   handleConfirm,
@@ -13,7 +14,7 @@ const ConfirmOrder = ({
     <div class="containerFormCheckOut">
       <div class="cardFormCheckOut cartFormCheckOut">
         <div class="titleFormCheckOut">
-          <label>XÁC NHẬN ĐƠN HÀNG</label>
+          <label>XÁC NHẬN ĐƠN HÀNG </label>
           <button
             className="closeBtn"
             onClick={() => {
@@ -28,7 +29,7 @@ const ConfirmOrder = ({
             <div>
               <span className="spanConFirmOrder">Tên khách hàng</span>
               <p>
-                {user.firstName} {user.lastName}
+                {user.lastName} {user.firstName}
               </p>
             </div>
             <div>
@@ -42,20 +43,26 @@ const ConfirmOrder = ({
 
             <div>
               <span className="spanConFirmOrder">Phương thức thanh toán</span>
-              <p>Thanh toán khi nhận hàng</p>
+              <p>{value}</p>
             </div>
             {/* <hr /> */}
 
             <span className="spanConFirmOrder">Chi tiết đơn hàng</span>
             <div class="item">
-              {cart.map((item) => (
+              {cart.map((item, i) => (
                 <div key={item.product.id}>
-                  <p>
-                    <strong style={{ marginRight: "3em" }}>
-                      {item.product.productName}
-                    </strong>
-                    Số lượng: <strong> {item.quantity}</strong>
-                  </p>{" "}
+                  <Stack
+                    direction={"row"}
+                    sx={{
+                      color: "#19376D",
+                      justifyContent: "space-between",
+                      marginRight: 5,
+                    }}
+                  >
+                    <strong>{i}</strong>
+                    <strong>{item.product.productName}</strong>
+                    <strong> Số lượng: {item.quantity}</strong>
+                  </Stack>
                 </div>
               ))}
             </div>
@@ -77,7 +84,8 @@ const ConfirmOrder = ({
         <div class="cardFormCheckOut checkout">
           <div class="footer">
             <label class="titleFormCheckOut">
-              Tổng số tiền cần thanh toán : {total.toFixed(2)} vnd
+              Tổng số tiền cần thanh toán :{" "}
+              {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} vnd
             </label>
 
             <button
@@ -86,7 +94,7 @@ const ConfirmOrder = ({
                 handleConfirm();
               }}
             >
-              Checkout
+              Thanh toán
             </button>
           </div>
         </div>

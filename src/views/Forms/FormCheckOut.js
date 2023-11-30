@@ -82,13 +82,6 @@ const FormCheckOut = ({ note, setNote }) => {
       </div>
 
       <hr className="my-4" />
-
-      <div className="form-check">
-        {/* <input type="checkbox" className="form-check-input" id="same-address" /> */}
-        <label className="form-check-label" htmlFor="same-address">
-          Thanh toán khi nhận hàng
-        </label>
-      </div>
     </form>
   );
 };

@@ -2,7 +2,7 @@ import { Box, CircularProgress, Stack } from "@mui/material";
 import Left from "../User/Left";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CheckStatus, ValueDate } from "./Style";
+import { CheckStatus, CheckStatusPay, ValueDate } from "./Style";
 import { DataGrid } from "@mui/x-data-grid";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
@@ -36,6 +36,18 @@ function History() {
       flex: 1,
     },
     {
+      field: "statusPayment",
+      headerName: "Thanh toán",
+      renderCell: (params) => <CheckStatusPay {...params} />,
+      flex: 1,
+    },
+    {
+      field: "paymentType",
+      headerName: "Phương thức",
+
+      flex: 1,
+    },
+    {
       field: "date",
       headerName: "Ngày lập",
       flex: 1,
@@ -48,14 +60,16 @@ function History() {
   const datatable = () => {
     if (Array.isArray(data) && data.length !== 0) {
       return (
-        <Box height="70vh" width="99%">
+        <Box height="70vh" width="98%">
           <DataGrid
             rowHeight={50}
             rows={data.map((item) => ({
               id: item.id,
-              name: item.customer.firstName + " " + item.customer.lastName,
+              name: item.customer.lastName + " " + item.customer.firstName,
               status: item.statusOrder,
               date: item.date,
+              statusPayment: item.statusPayment,
+              paymentType: item.paymentType,
             }))}
             density="comfortable"
             columns={columns}
