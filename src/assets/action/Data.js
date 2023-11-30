@@ -488,3 +488,54 @@ export const dataLK2 = [
     ],
   },
 ];
+
+export const criteria = [
+  {
+    name: "Hiệu suất",
+    description: "Đánh giá theo khả năng xử lý và tốc độ",
+    weight: 0.3,
+  },
+  {
+    name: "Thời lượng pin",
+    description: "Thời gian sử dụng pin khi không sạc",
+    weight: 0.2,
+  },
+  {
+    name: "Kích thước và trọng lượng",
+    description: "Di động và tiện lợi mang theo",
+    weight: 0.15,
+  },
+  {
+    name: "Đồ họa",
+    description: "Khả năng xử lý đồ họa và card đồ họa",
+    weight: 0.25,
+  },
+  {
+    name: "Bảo mật",
+    description:
+      "Tính năng bảo mật như cảm biến vân tay hoặc nhận diện khuôn mặt",
+    weight: 0.1,
+  },
+];
+export const SapXep = [
+  {
+    name: "Giá cao - thấp",
+
+    weight: 0.3,
+  },
+  {
+    name: "Giá thấp - cao",
+
+    weight: 0.2,
+  },
+  {
+    name: "Khuyến mãi hot",
+
+    weight: 0.15,
+  },
+  {
+    name: "Xem nhiều",
+
+    weight: 0.25,
+  },
+];

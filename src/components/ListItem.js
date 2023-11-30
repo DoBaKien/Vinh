@@ -22,7 +22,7 @@ const ListItem = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8521/api/v1/products/getAll")
+      .get("http://localhost:8521/api/v1/products/getSPNB")
       .then(function (response) {
         setDataPhone(response.data);
       })

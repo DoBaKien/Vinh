@@ -24,6 +24,7 @@ function Left() {
     localStorage.removeItem("data");
     setIsLoggedIn(false);
     history.push("/");
+    window.location.reload();
   };
 
   return (

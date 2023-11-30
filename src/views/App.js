@@ -79,7 +79,7 @@ function App() {
               <Route path="/Support" exact>
                 <Support />
               </Route>
-              <Route path="/Find/:id" exact>
+              <Route path="/Find/:id">
                 <Find />
               </Route>
               <Route path="/User" exact>

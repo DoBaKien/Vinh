@@ -15,7 +15,7 @@ import {
 } from "../assets/action/Data";
 import { useEffect, useState } from "react";
 import { BoxMenu, TextMenu } from "../assets/style/Style";
-
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 function HoverMenu({ hovered, setHovered, data }) {
   const handleHover = () => {
     setHovered(!hovered);
@@ -24,15 +24,15 @@ function HoverMenu({ hovered, setHovered, data }) {
   const [daas, setDaas] = useState("");
   useEffect(() => {
     switch (data) {
-      case "main":
+      case "Main":
         setDaa(dataPK);
         setDaas(dataPK2);
         break;
-      case "laptop":
+      case "Laptop":
         setDaa(dataLap);
         setDaas(dataLap2);
         break;
-      case "case":
+      case "Case":
         setDaa(dataGaming);
         setDaas(dataGaming2);
         break;
@@ -40,7 +40,7 @@ function HoverMenu({ hovered, setHovered, data }) {
         setDaa(dataStorage);
         setDaas(dataStorage2);
         break;
-      case "loa":
+      case "Loa":
         setDaa(dataTn);
         setDaas(dataTn2);
         break;
@@ -52,7 +52,11 @@ function HoverMenu({ hovered, setHovered, data }) {
         break;
     }
   }, [data]);
+  const history = useHistory();
 
+  const handled = (as) => {
+    history.push(`/Find/${data + "////" + as}`);
+  };
   return (
     <>
       {hovered ? (
@@ -82,7 +86,11 @@ function HoverMenu({ hovered, setHovered, data }) {
                       </Typography>
                       {item.type.map((name, index) => {
                         return (
-                          <TextMenu variant="body2" key={index}>
+                          <TextMenu
+                            variant="body2"
+                            key={index}
+                            onClick={() => handled(name.name)}
+                          >
                             {name.name}
                           </TextMenu>
                         );
@@ -104,7 +112,11 @@ function HoverMenu({ hovered, setHovered, data }) {
                       </Typography>
                       {item.type.map((name, index) => {
                         return (
-                          <TextMenu variant="body2" key={index}>
+                          <TextMenu
+                            variant="body2"
+                            key={index}
+                            onClick={() => handled(name.name)}
+                          >
                             {name.name}
                           </TextMenu>
                         );

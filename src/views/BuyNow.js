@@ -82,7 +82,7 @@ function BuyNow() {
         },
       ],
     };
-
+    console.log(orderData);
     axios
       .post(`/api/v1/orders/createNow`, orderData)
       .then(function (response) {

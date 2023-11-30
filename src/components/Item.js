@@ -19,7 +19,7 @@ const Item = (props) => {
 
     setData(props);
   }, [props]);
-
+  console.log(props.children);
   const handleView = () => {
     const currentPath = window.location.pathname;
     const newPath = `/Shopping/${data.children.id}`;
@@ -45,15 +45,20 @@ const Item = (props) => {
             />
           </a>
 
-          <div class="label-top shadow-sm" style={{ background: "#d70018" }}>
-            <div
-              class="text-white"
-              style={{ textDecoration: "none", fontSize: 16 }}
-              onClick={() => handleView()}
-            >
-              Giảm giá
+          {props.children.sale !== null ? (
+            <div class="label-top shadow-sm" style={{ background: "#d70018" }}>
+              <div
+                class="text-white"
+                style={{ textDecoration: "none", fontSize: 16 }}
+                onClick={() => handleView()}
+              >
+                {data.children.sale.discount} %
+              </div>
             </div>
-          </div>
+          ) : (
+            ""
+          )}
+
           <div class="card-body">
             <h5 class="card-title">
               <div

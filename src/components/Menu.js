@@ -28,7 +28,7 @@ const Menu = ({ hovered, setHovered, setData }) => {
         <ListButton
           onMouseEnter={() => {
             setHovered(true);
-            setData("laptop");
+            setData("Laptop");
           }}
           onMouseLeave={handleHover}
         >
@@ -41,7 +41,7 @@ const Menu = ({ hovered, setHovered, setData }) => {
         <ListButton
           onMouseEnter={() => {
             setHovered(true);
-            setData("main");
+            setData("Main");
           }}
           onMouseLeave={handleHover}
         >
@@ -54,7 +54,7 @@ const Menu = ({ hovered, setHovered, setData }) => {
         <ListButton
           onMouseEnter={() => {
             setHovered(true);
-            setData("case");
+            setData("Case");
           }}
           onMouseLeave={handleHover}
         >
@@ -80,7 +80,7 @@ const Menu = ({ hovered, setHovered, setData }) => {
         <ListButton
           onMouseEnter={() => {
             setHovered(true);
-            setData("loa");
+            setData("Loa");
           }}
           onMouseLeave={handleHover}
         >
