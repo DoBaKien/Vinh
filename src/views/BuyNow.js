@@ -5,9 +5,14 @@ import {
   CardContent,
   CardMedia,
   Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   IconButton,
   OutlinedInput,
   Paper,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -19,15 +24,20 @@ import { useParams } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 function BuyNow() {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
+  const [value, setValue] = useState("Thanh toán khi nhận hàng");
 
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
   const [note, setNote] = useState("");
   const dataUser = JSON.parse(localStorage.getItem("data"));
-
+  const history = useHistory();
   useEffect(() => {
     axios
       .get(`/api/v1/products/getById/${id}`)
@@ -72,8 +82,9 @@ function BuyNow() {
       customer: {
         id: dataUser.id,
       },
-      statusOrder: "1",
-
+      statusOrder: value === "Thanh toán khi nhận hàng" ? 1 : 3,
+      paymentType: value,
+      statusPayment: value === "Thanh toán khi nhận hàng" ? 0 : 1,
       orderDetails: [
         {
           quantity: quantity,
@@ -87,7 +98,24 @@ function BuyNow() {
     axios
       .post(`/api/v1/orders/createNow`, orderData)
       .then(function (response) {
-        toast.success("Thành công");
+        if (value === "Thanh toán online") {
+          axios
+            .post("/api/v1/payments/paymentWithVNPAY", {
+              idOrder: response.data.id,
+              price:
+                data.price -
+                ((data.price * data.sale.discount) / 100) * quantity,
+            })
+            .then(function (response) {
+              window.open(response.data.url, "_self");
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          toast.success("Thành công");
+          history.push("/");
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -159,6 +187,28 @@ function BuyNow() {
                 </CardContent>
               </Stack>
             </Card>
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">
+                Phương thức thanh toán
+              </FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={value}
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  value="Thanh toán khi nhận hàng"
+                  control={<Radio />}
+                  label="Thanh toán khi nhận hàng"
+                />
+                <FormControlLabel
+                  value="Thanh toán online"
+                  control={<Radio />}
+                  label="Thanh toán online"
+                />
+              </RadioGroup>
+            </FormControl>
             <Box
               sx={{
                 backgroundColor: "white",
@@ -203,7 +253,8 @@ function BuyNow() {
                 <Typography variant="h5">
                   {(data.price * quantity)
                     .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                  đ
                 </Typography>
               </Box>
             </Stack>
@@ -225,7 +276,13 @@ function BuyNow() {
                 <Typography variant="h5">{data.sale?.discount}%</Typography>
               </Box>
               <Box width={180}>
-                <Typography variant="h5">{data.price} VND</Typography>
+                <Typography variant="h5">
+                  {((data.price * data.sale.discount) / 100) *
+                    quantity
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                  đ
+                </Typography>
               </Box>
             </Stack>
 
@@ -238,11 +295,17 @@ function BuyNow() {
                   justifyContent: "space-between",
                 }}
               >
-                <Typography variant="h5">Tổng số tiền</Typography>
-                <Typography variant="h5">
-                  {(data.price * quantity)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                <Typography variant="h5" width={150}>
+                  Tổng số tiền
+                </Typography>
+                <Typography variant="h5" width={50}></Typography>
+                <Typography variant="h5" width={160}>
+                  {data.price -
+                    ((data.price * data.sale.discount) / 100) *
+                      quantity
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                  đ
                 </Typography>
               </Stack>
             </Box>
