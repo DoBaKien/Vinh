@@ -60,13 +60,13 @@ function Detail() {
   ];
   const checkS = (value) => {
     if (value === "1") {
-      return "Đang xử lý ";
+      return " Đang xử lý ";
     } else if (value === "2") {
-      return "Đang vận chuyển";
+      return " Đang vận chuyển";
     } else if (value === "3") {
-      return "Hoàn thành";
+      return " Hoàn thành";
     } else {
-      return "Đã hủy";
+      return " Đã hủy";
     }
   };
 
@@ -118,38 +118,44 @@ function Detail() {
   const BoxNav = () => {
     if (data.statusOrder.charAt(0) === "0") {
       return (
-        <Box
+        <GridBox
+          item
+          md={4}
           sx={{
-            display: "flex",
-            justifyContent: "center",
+            width: 250,
+            paddingLeft: 3,
           }}
         >
-          <BoxBtn sx={{ display: "block", paddingLeft: 3 }}>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", textDecoration: "underline" }}
-            >
-              Lý do
-            </Typography>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", textDecoration: "underline" }}
+          >
+            Lý do
+          </Typography>
+          <Box>
             <Typography>{data.statusOrder.substring(1)}</Typography>
-          </BoxBtn>
-        </Box>
+          </Box>
+        </GridBox>
       );
     } else if (data.statusOrder !== "3") {
       return (
-        <Box
+        <GridBox
+          item
+          md={4}
           sx={{
+            width: 250,
             display: "flex",
+            alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <BoxBtn gap={10} sx={{ width: 200 }}>
-            <Button variant="contained" color="error" onClick={handleError}>
-              Hủy đơn
-            </Button>
-          </BoxBtn>
-        </Box>
+          <Button variant="contained" color="error" onClick={handleError}>
+            Hủy đơn
+          </Button>
+        </GridBox>
       );
+    } else {
+      return "";
     }
   };
 
@@ -170,30 +176,48 @@ function Detail() {
               variant="h4"
               sx={{ textAlign: "center" }}
             >{`Hóa đơn ${idO.id}`}</Typography>
-            <Box
+
+            <Grid
               sx={{
-                width: "100%",
                 display: "flex",
+                paddingLeft: 3,
+                paddingRight: 3,
                 justifyContent: "center",
               }}
             >
-              <StackNav direction={"row"}>
-                <Typography variant="subtitle1">
-                  Trạng thái: {checkS(data.statusOrder)}
-                </Typography>
-                <Typography variant="subtitle1">
-                  Tổng hóa đơn:{" "}
-                  {sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                </Typography>
-                <Typography variant="subtitle1">
-                  Ngày lập: {ValueDate2(data.date)}
-                </Typography>
-              </StackNav>
-            </Box>
-            <BoxNav />
+              <BoxNav />
+
+              {/* {data.statusOrder !== "1" ? (
+                <GridBox item md={4} sx={{ paddingLeft: 2, width: 300 }}>
+                  <Typography
+                    variant="h6"
+                    sx={{ fontWeight: "bold", textDecoration: "underline" }}
+                  >
+                    Nhân viên
+                  </Typography>
+
+                  <Typography variant="body1">
+                    Tên:{" "}
+                    {data.employee !== ""
+                      ? data.employee.lastName + " " + data.employee.firstName
+                      : "Tên"}
+                  </Typography>
+                  <Typography variant="body1">
+                    SDT: {data.employee !== "" ? data.employee.phone : "Email"}
+                  </Typography>
+                  <Typography variant="body1">
+                    Email:{" "}
+                    {data.employee !== "" ? data.employee.email : "Email"}
+                  </Typography>
+                </GridBox>
+              ) : null} */}
+            </Grid>
             <Grid
               container
-              sx={{ justifyContent: "space-between", padding: 3 }}
+              sx={{
+                justifyContent: "space-between",
+                padding: 3,
+              }}
             >
               <GridBox
                 item
@@ -209,44 +233,80 @@ function Detail() {
                   Thông tin khách hàng
                 </Typography>
                 <Typography variant="body1">
-                  {data.customer.lastName + " " + data.customer.firstName}
+                  Họ và tên:
+                  {" " + data.customer.lastName + " " + data.customer.firstName}
                 </Typography>
-                <Typography variant="body1">{data.customer.email}</Typography>
-                <Typography variant="body1">{data.customer.phone}</Typography>
-                <Box sx={{ marginTop: 2 }}>
+                <Typography variant="body1">
+                  Email: {data.customer.email}
+                </Typography>
+                <Typography variant="body1">
+                  SDT: {data.customer.phone}
+                </Typography>
+                <Typography variant="body1">
+                  Địa chỉ: {data.customer.address}
+                </Typography>
+                <Box>
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: "bold", textDecoration: "underline" }}
                   >
                     Ghi chú
                   </Typography>
-                  <Typography>{data.note || "không có"}</Typography>
+                  <Typography>{data.note || "Không có"}</Typography>
                 </Box>
               </GridBox>
-
-              {data.employee !== null ? (
-                <GridBox item md={3} sx={{ paddingRight: 2 }}>
+              <GridBox
+                item
+                md={4}
+                sx={{
+                  paddingLeft: 2,
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", textDecoration: "underline" }}
+                >
+                  Thông tin đơn
+                </Typography>
+                <Stack direction={"row"}>
+                  <Typography variant="body1"> Trạng thái: </Typography>
                   <Typography
-                    variant="h6"
-                    align="right"
-                    sx={{ fontWeight: "bold", textDecoration: "underline" }}
+                    variant="body1"
+                    sx={{
+                      color: "red",
+                      fontWeight: "bold",
+                    }}
                   >
-                    Nhân viên
+                    {checkS(data.statusOrder)}
                   </Typography>
-                  <Typography variant="body1" align="right">
-                    {data.employee.id || "Id"}
+                </Stack>
+                <Typography variant="body1">
+                  Phương thức: {data.paymentType}
+                </Typography>
+                <Stack direction={"row"}>
+                  <Typography variant="body1">Thanh toán: </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: "red",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {data.statusPayment === 1
+                      ? " Đã thanh toán"
+                      : "Chưa thanh toán"}
                   </Typography>
-                  <Typography variant="body1" align="right">
-                    {data.employee !== ""
-                      ? data.employee.lastName + " " + data.employee.firstName
-                      : "Tên"}
-                  </Typography>
-                  <Typography align="right" variant="body1">
-                    {data.employee !== "" ? data.employee.email : "Email"}
-                  </Typography>
-                </GridBox>
-              ) : null}
+                </Stack>
+                <Typography variant="body1">
+                  Tổng hóa đơn:{" "}
+                  {sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                </Typography>
+                <Typography variant="body1">
+                  Ngày lập: {ValueDate2(data.date)}
+                </Typography>
+              </GridBox>
             </Grid>
+
             {data !== "" ? (
               <DataGrid
                 localeText={{
@@ -262,7 +322,7 @@ function Detail() {
                   quantity: item.quantity,
                 }))}
                 columns={columns}
-                sx={{ flex: 1, backgroundColor: "white" }}
+                sx={{ flex: 1, backgroundColor: "white", height: 500 }}
                 hideFooter
               />
             ) : (
@@ -275,7 +335,7 @@ function Detail() {
       return (
         <Box
           sx={{
-            height: "80vh",
+            height: 500,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

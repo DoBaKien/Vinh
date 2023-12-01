@@ -1,4 +1,6 @@
-import { Box, Grid, Stack, styled } from "@mui/material";
+import { Box, Grid, Stack, Typography, styled } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const CheckStatus = ({ value }) => {
   if (value === "1") {
@@ -54,13 +56,10 @@ export const StackNav = styled(Stack)({
 export const BoxBtn = styled(Box)({
   backgroundColor: "white",
   padding: 10,
-  border: "1px solid black",
-  borderRadius: 20,
-  width: "50%",
+
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  marginTop: 20,
 });
 export const GridBox = styled(Grid)({
   border: "1px solid black",
@@ -69,3 +68,28 @@ export const GridBox = styled(Grid)({
   paddingBottom: 10,
   backgroundColor: "white",
 });
+export const SaleDis = ({ value }) => {
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`/api/v1/sales/getById/${value.sale}`)
+      .then((res) => {
+        setData(res.data.discount);
+      })
+      .catch((error) => console.log(error));
+  }, [value]);
+  return (
+    <Stack direction={"column"}>
+      <Typography sx={{ textDecoration: "line-through" }}>
+        {value.price} đ
+      </Typography>
+      <Typography>
+        {(value.price - value.price * (data / 100))
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+        đ
+      </Typography>
+    </Stack>
+  );
+};

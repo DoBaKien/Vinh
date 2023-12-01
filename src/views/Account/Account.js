@@ -16,10 +16,14 @@ import { TextInput } from "./Style";
 import { createRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { format } from "date-fns";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 function Account() {
   const dataUser = JSON.parse(localStorage.getItem("data"));
   console.log(dataUser);
+
   const [ava, setAva] = useState(dataUser.avatar.imageLink);
   const [fName, setFName] = useState(dataUser.firstName);
   const [lName, setLName] = useState(dataUser.lastName);
@@ -27,6 +31,7 @@ function Account() {
   const [address, setAddress] = useState(dataUser.address);
   const [phone, setPhone] = useState(dataUser.phone);
   const [birth, setBirth] = useState(dataUser.dateOfBirth);
+
   const [sex, setSex] = useState(dataUser.sex);
   const [done, setDone] = useState(true);
   const [id, setId] = useState("");
@@ -156,19 +161,28 @@ function Account() {
                 label="Age"
                 onChange={handleChange}
               >
-                <MenuItem value={1}>Nam</MenuItem>
-                <MenuItem value={2}>Nữ</MenuItem>
+                <MenuItem value={0}>Nam</MenuItem>
+                <MenuItem value={1}>Nữ</MenuItem>
               </Select>
             </FormControl>
-            <TextInput
-              id="standard-basic"
-              label="Sinh nhật"
-              variant="standard"
-              value={birth || "Không có"}
-              fullWidth
-              disabled
-              onChange={(e) => setBirth(e.target.value)}
-            />
+
+            <Box style={{ marginTop: 30 }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  sx={{ width: "100%" }}
+                  label="Ngày bắt đầu"
+                  value={dayjs(birth)}
+                  openTo="year"
+                  fullWidth
+                  inputFormat="DD/MM/YYYY"
+                  views={["year", "month", "day"]}
+                  minDate={dayjs("2023-01-01")}
+                  onChange={(newValue) => {
+                    setBirth(newValue);
+                  }}
+                />
+              </LocalizationProvider>
+            </Box>
             <TextInput
               id="standard-basic"
               label="Địa chỉ"
