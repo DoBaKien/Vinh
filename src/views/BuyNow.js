@@ -82,9 +82,9 @@ function BuyNow() {
       customer: {
         id: dataUser.id,
       },
-      statusOrder: "3",
+      statusOrder: value === "Thanh toán khi nhận hàng" ? 1 : 3,
       paymentType: value,
-      statusPayment: 1,
+      statusPayment: value === "Thanh toán khi nhận hàng" ? 0 : 1,
       orderDetails: [
         {
           quantity: quantity,
