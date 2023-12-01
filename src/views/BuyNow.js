@@ -34,6 +34,7 @@ function BuyNow() {
       .then(function (response) {
         setData(response.data);
         setImage(response.data.imageProducts[0].imageLink);
+        console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -221,10 +222,10 @@ function BuyNow() {
                 <Typography variant="h5">Khuyến mãi</Typography>
               </Box>
               <Box width={10}>
-                <Typography variant="h5">0%</Typography>
+                <Typography variant="h5">{data.sale?.discount}%</Typography>
               </Box>
               <Box width={180}>
-                <Typography variant="h5">0 VND</Typography>
+                <Typography variant="h5">{data.price} VND</Typography>
               </Box>
             </Stack>
 

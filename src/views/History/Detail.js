@@ -10,7 +10,7 @@ import {
 import Left from "../User/Left";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BoxBtn, GridBox, StackNav, ValueDate2 } from "./Style";
+import { BoxBtn, GridBox, SaleDis, StackNav, ValueDate2 } from "./Style";
 import { DataGrid } from "@mui/x-data-grid";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -20,7 +20,7 @@ function Detail() {
   const [sum, setSum] = useState("");
   const idO = useParams();
   const userId = JSON.parse(localStorage.getItem("data"));
-  console.log(userId);
+
   useEffect(() => {
     axios
       .get(`/api/v1/orders/getOrderById/${idO.id}`)
@@ -40,11 +40,19 @@ function Detail() {
   }, [idO.id]);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-
     {
       field: "name",
       headerName: "Tên sản phẩm",
+      flex: 1,
+    },
+    {
+      field: "loai",
+      headerName: "Loại",
+      flex: 1,
+    },
+    {
+      field: "brand",
+      headerName: "Thương hiệu",
       flex: 1,
     },
     {
@@ -52,9 +60,11 @@ function Detail() {
       headerName: "Số lượng",
       flex: 0.5,
     },
+
     {
       field: "price",
       headerName: "Giá",
+      renderCell: (params) => <SaleDis value={params.row} />,
       flex: 0.5,
     },
   ];
@@ -318,8 +328,12 @@ function Detail() {
                 rows={data.orderDetails.map((item) => ({
                   id: item.id,
                   name: item.product.productName,
+
                   price: item.product.price,
                   quantity: item.quantity,
+                  sale: item.saleId,
+                  loai: item.product.category.categoryName,
+                  brand: item.product.brand.name,
                 }))}
                 columns={columns}
                 sx={{ flex: 1, backgroundColor: "white", height: 500 }}
