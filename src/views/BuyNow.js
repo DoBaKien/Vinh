@@ -31,7 +31,7 @@ function BuyNow() {
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
   const [value, setValue] = useState("Thanh toán khi nhận hàng");
-
+  const [sale, setSale] = useState("");
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -44,7 +44,7 @@ function BuyNow() {
       .then(function (response) {
         setData(response.data);
         setImage(response.data.imageProducts[0].imageLink);
-        console.log(response.data);
+        setSale(response.data.sale.discount);
       })
       .catch(function (error) {
         console.log(error);
@@ -82,9 +82,9 @@ function BuyNow() {
       customer: {
         id: dataUser.id,
       },
-      statusOrder: value === "Thanh toán khi nhận hàng" ? 1 : 3,
+      statusOrder: "3",
       paymentType: value,
-      statusPayment: value === "Thanh toán khi nhận hàng" ? 0 : 1,
+      statusPayment: 1,
       orderDetails: [
         {
           quantity: quantity,
@@ -102,9 +102,10 @@ function BuyNow() {
           axios
             .post("/api/v1/payments/paymentWithVNPAY", {
               idOrder: response.data.id,
-              price:
-                data.price -
-                ((data.price * data.sale?.discount) / 100) * quantity,
+              price: sale
+                ? data.price -
+                  ((data.price * data.sale?.discount) / 100) * quantity
+                : data.price * quantity,
             })
             .then(function (response) {
               window.open(response.data.url, "_self");
@@ -273,17 +274,25 @@ function BuyNow() {
                 <Typography variant="h5">Khuyến mãi</Typography>
               </Box>
               <Box width={10}>
-                <Typography variant="h5">{data.sale?.discount}%</Typography>
-              </Box>
-              <Box width={180}>
                 <Typography variant="h5">
-                  {((data.price * data.sale?.discount) / 100) *
-                    quantity
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                  đ
+                  {data.sale?.discount || 0}%
                 </Typography>
               </Box>
+              {data.sale?.discount ? (
+                <Box width={180}>
+                  <Typography variant="h5">
+                    {((data.price * data.sale.discount) / 100) *
+                      quantity
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                    đ
+                  </Typography>
+                </Box>
+              ) : (
+                <Box width={180}>
+                  <Typography variant="h5">{0}đ</Typography>
+                </Box>
+              )}
             </Stack>
 
             <Box sx={{ backgroundColor: "#DDDDDD", padding: 2, marginTop: 2 }}>
@@ -299,14 +308,24 @@ function BuyNow() {
                   Tổng số tiền
                 </Typography>
                 <Typography variant="h5" width={50}></Typography>
-                <Typography variant="h5" width={160}>
-                  {data.price -
-                    ((data.price * data.sale.discount) / 100) *
+                {sale ? (
+                  <Typography variant="h5" width={160}>
+                    {data.price -
+                      ((data.price * data.sale?.discount) / 100) *
+                        quantity
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                    đ
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" width={160}>
+                    {data.price *
                       quantity
                         .toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                  đ
-                </Typography>
+                    đ
+                  </Typography>
+                )}
               </Stack>
             </Box>
             <Box
