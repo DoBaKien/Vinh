@@ -104,7 +104,7 @@ function BuyNow() {
               idOrder: response.data.id,
               price:
                 data.price -
-                ((data.price * data.sale.discount) / 100) * quantity,
+                ((data.price * data.sale?.discount) / 100) * quantity,
             })
             .then(function (response) {
               window.open(response.data.url, "_self");
@@ -277,7 +277,7 @@ function BuyNow() {
               </Box>
               <Box width={180}>
                 <Typography variant="h5">
-                  {((data.price * data.sale.discount) / 100) *
+                  {((data.price * data.sale?.discount) / 100) *
                     quantity
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
