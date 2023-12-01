@@ -27,7 +27,7 @@ function Item(props) {
       setDas(props.children.price);
     }
   }, [props]);
-  console.log(das);
+
   const handleView = () => {
     const currentPath = window.location.pathname;
     const newPath = `/Shopping/${data.children.id}`;

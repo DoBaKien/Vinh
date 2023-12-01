@@ -8,11 +8,13 @@ import { useEffect } from "react";
 import Item from "../../components/Item";
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
-import { SapXep, criteria } from "../../assets/action/Data";
+import { SapXep } from "../../assets/action/Data";
 function Find() {
   const { id } = useParams();
-
+  const itemDetails = id.split("aa");
+  const [sortData, setSort] = useState("");
   const [dataPhone, setDataPhone] = useState([]);
+
   const style = [
     { top: "-6em" },
     {
@@ -27,15 +29,43 @@ function Find() {
           "http://localhost:8521/api/v1/products/getAll"
         );
         let data = res && res.data ? res.data : [];
-
-        setDataPhone(data);
+        if (sortData === "Giá cao - thấp") {
+          setDataPhone(
+            data
+              .filter((item) => item.category.categoryName === itemDetails[0])
+              .sort((a, b) => b.price - a.price)
+          );
+        } else if (sortData === "Giá thấp - cao") {
+          setDataPhone(
+            data
+              .filter((item) => item.category.categoryName === itemDetails[0])
+              .sort((a, b) => a.price - b.price)
+          );
+        } else if (sortData === "Khuyến mãi hot") {
+          axios
+            .get("http://localhost:8521/api/v1/products/getSPNB")
+            .then(function (response) {
+              setDataPhone(
+                response.data.filter(
+                  (item) => item.category.categoryName === itemDetails[0]
+                )
+              );
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else if (sortData === "") {
+          setDataPhone(
+            data.filter((item) => item.category.categoryName === itemDetails[0])
+          );
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
     fetchData();
-  }, [id]);
+  }, [id, sortData]);
 
   const Itemas = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -45,12 +75,15 @@ function Find() {
       fontWeight: "bold",
     },
   }));
+  const handleChange = (e) => {
+    setSort(e);
+  };
 
   return (
     <section>
       <div className="container-xl py-2" style={{ width: "92%" }}>
         <div className="row">
-          <Typography variant="h5">Chọn theo tiêu chí</Typography>
+          {/* <Typography variant="h5">Chọn theo tiêu chí</Typography>
           <Grid container>
             {Array.from(criteria).map((item, index) => (
               <Grid
@@ -64,7 +97,7 @@ function Find() {
                 <Itemas>{item.name}</Itemas>
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
         </div>
         <div className="row">
           <Typography variant="h5">Sắp xếp theo</Typography>
@@ -78,7 +111,9 @@ function Find() {
                 key={index}
                 sx={{ margin: 1, cursor: "pointer" }}
               >
-                <Itemas>{item.name}</Itemas>
+                <Itemas onClick={() => handleChange(item.name)}>
+                  {item.name}
+                </Itemas>
               </Grid>
             ))}
           </Grid>

@@ -7,10 +7,12 @@ import { useHistory } from "react-router-dom";
 
 import gift from "../assets/images/gift-filled.png";
 import { toast } from "react-toastify";
+import { Box, Stack, Typography } from "@mui/material";
 
 const DetailItemDescription = (props) => {
   const [dataDes, setDataDes] = useState();
   const dataUser = JSON.parse(localStorage.getItem("data"));
+  const [das, setDas] = useState("");
   const history = useHistory();
   useEffect(() => {
     if (props.data) {
@@ -18,7 +20,15 @@ const DetailItemDescription = (props) => {
         .get(`/api/v1/products/getById/${props.data}`)
         .then(function (response) {
           setDataDes(response);
-          console.log(response.data.id);
+          console.log(response.data);
+          if (response.data.sale !== null) {
+            setDas(
+              response.data.price -
+                response.data.price * (response.data.sale.discount / 100)
+            );
+          } else {
+            setDas(response.data.price);
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -68,22 +78,56 @@ const DetailItemDescription = (props) => {
       </div>
       {/* =============================== */}
 
-      <div className="price">
-        <span
-          style={{
-            color: "black",
-            marginRight: "5em",
-            letterSpacing: "0px",
-          }}
-        >
-          Giá chỉ:
-        </span>
-        {dataDes && dataDes.data
-          ? dataDes.data.price
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "\tVND"
-          : ""}
-      </div>
+      <Box
+        sx={{
+          marginTop: 2,
+          backgroundColor: "lightgray",
+          display: "flex",
+          alignItems: "center",
+          height: 100,
+          borderRadius: 5,
+        }}
+      >
+        {dataDes && dataDes.data ? (
+          <Stack
+            direction={"row"}
+            spacing={10}
+            sx={{ marginLeft: 2, display: "flex", alignItems: "center" }}
+          >
+            <Typography variant="h3" sx={{ color: "red", fontWeight: "bold" }}>
+              {das.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ
+            </Typography>
+            {dataDes.data.sale ? (
+              <Stack
+                direction={"row"}
+                gap={5}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <Typography
+                  variant="h5"
+                  sx={{ textDecoration: "line-through" }}
+                >
+                  {dataDes.data.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                  đ
+                </Typography>
+
+                <Box
+                  sx={{ border: "1px solid red", padding: 1, borderRadius: 2 }}
+                >
+                  <Typography
+                    variant="h5"
+                    sx={{ color: "red", fontWeight: "bold" }}
+                  >
+                    {dataDes.data.sale.discount} %
+                  </Typography>
+                </Box>
+              </Stack>
+            ) : null}
+          </Stack>
+        ) : null}
+      </Box>
 
       <div className="promotionContainer">
         <div className="promotionTitle">KHUYẾN MÃI KHI MUA NGAY:</div>

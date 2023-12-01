@@ -55,7 +55,7 @@ function HoverMenu({ hovered, setHovered, data }) {
   const history = useHistory();
 
   const handled = (as) => {
-    history.push(`/Find/${data + "////" + as}`);
+    history.push(`/Find/${data + "aa" + as}`);
   };
   return (
     <>
