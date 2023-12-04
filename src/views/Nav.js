@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logo from "../assets/images/logo.png";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
-
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
+import { Avatar, Box, Stack, Typography } from "@mui/material";
+import ListIcon from "@mui/icons-material/List";
 const Nav = () => {
   const { isLoggedIn, searchInput, setSearchInput } = useAuth(); // Sử dụng useAuth để lấy trạng thái đăng nhập
   const history = useHistory();
@@ -24,19 +26,14 @@ const Nav = () => {
       history.push("/Shopping", { searchValue });
     }
   };
-  // const handleCheckOut = () => {
-  //   const listCheckout = cart
-  //     .filter((item) => selectedItems[item.id])
-  //     .map((item) => item.id);
 
-  //   history.push("/Checkout", { listCheckout });
-  // };
-  // =========
   const [user, setUser] = useState(null);
   useEffect(() => {
     const data = localStorage.getItem("data");
     setUser(JSON.parse(data));
   }, []);
+  console.log(user);
+  console.log(isLoggedIn);
   return (
     <div>
       <nav className="navbar navbar-expand-md bg-blue sticky-top navbar-light  shadow-sm ">
@@ -90,42 +87,91 @@ const Nav = () => {
             </div>
           </div>
           <ul className="navbar-nav ms-auto ">
-            <li className="nav-item">
-              <Link
-                to="/Shopping"
-                className="nav-link-nav mx-3 text-uppercase"
-                href="#"
-              >
-                <i class="fas fa-list" style={{ marginRight: "5px" }}></i>
-                <br />
-                Sản phẩm
+            <Stack
+              className="nav-item"
+              direction={"column"}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginRight: 30,
+                cursor: "pointer",
+              }}
+            >
+              <Link className="nav-link-nav mx-3 text-uppercase" to="/Shopping">
+                <Box>
+                  <ListIcon sx={{ width: 40, height: 40 }} />
+                </Box>
               </Link>
-            </li>
 
-            <li className="nav-item">
+              <Typography sx={{ fontWeight: "bold" }}>Sản phẩm</Typography>
+            </Stack>
+            <Stack
+              className="nav-item"
+              direction={"column"}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginRight: 30,
+                cursor: "pointer",
+              }}
+            >
               <Link className="nav-link-nav mx-3 text-uppercase" to="/Cart">
-                <i class="fas fa-shopping-basket me-1"></i>
-                <br />
-                Giỏ hàng
+                <Box>
+                  <ShoppingBasketIcon sx={{ width: 40, height: 40 }} />
+                </Box>
               </Link>
-            </li>
+
+              <Typography sx={{ fontWeight: "bold" }}>Giỏ hàng</Typography>
+            </Stack>
 
             {isLoggedIn ? (
               // Đã đăng nhập, hiển thị "Cá nhân"
-              <li className="nav-item">
+              <Stack
+                className="nav-item"
+                direction={"column"}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+
+                  cursor: "pointer",
+                }}
+              >
                 <Link className="nav-link-nav mx-3 text-uppercase" to="/User">
-                  <i className="fas fa-user-alt"></i>
-                  <br /> Cá nhân
+                  <Box>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={user?.avatar?.imageLink || ""}
+                      sx={{ width: 40, height: 40 }}
+                    />
+                  </Box>
                 </Link>
-              </li>
+
+                <Typography sx={{ fontWeight: "bold" }}>Cá nhân</Typography>
+              </Stack>
             ) : user ? (
               // Chưa đăng nhập, nhưng user tồn tại, hiển thị "Cá nhân"
-              <li className="nav-item">
+              <Stack
+                className="nav-item"
+                direction={"column"}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+
+                  cursor: "pointer",
+                }}
+              >
                 <Link className="nav-link-nav mx-3 text-uppercase" to="/User">
-                  <i className="fas fa-user-alt"></i> <br />
-                  Cá nhân
+                  <Box>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={user?.avatar?.imageLink || ""}
+                      sx={{ width: 40, height: 40 }}
+                    />
+                  </Box>
                 </Link>
-              </li>
+
+                <Typography sx={{ fontWeight: "bold" }}>Cá nhân</Typography>
+              </Stack>
             ) : (
               // Chưa đăng nhập và user không tồn tại, hiển thị "Đăng nhập"
               <>

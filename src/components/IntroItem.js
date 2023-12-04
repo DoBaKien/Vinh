@@ -15,7 +15,11 @@ const IntroItem = (props) => {
         .get(`/api/v1/products/getById/${props.data}`)
         .then(function (response) {
           setValue(response.data.description);
-          setSpec(response.data.specifications);
+          setSpec(
+            response.data.specifications.filter(
+              (item) => item.specificationValue !== ""
+            )
+          );
           console.log(response.data.specifications);
         })
         .catch(function (error) {
@@ -59,7 +63,7 @@ const IntroItem = (props) => {
               style={{
                 flex: 1,
                 backgroundColor: "white",
-                height: heightBox ? 100 : "100%",
+                height: heightBox ? 100 : "98%",
                 overflow: "hidden",
               }}
               dangerouslySetInnerHTML={{ __html: value }}
@@ -69,7 +73,6 @@ const IntroItem = (props) => {
             sx={{
               width: 450,
               backgroundColor: "white",
-
               borderRadius: 5,
               boxShadow:
                 "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
