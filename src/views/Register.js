@@ -58,50 +58,56 @@ const Register = () => {
     if (password !== rPassword) {
       toast.error("Mật khẩu và xác nhận mật khẩu không giống nhau.");
       return;
+    } else if (
+      email === "" &&
+      password === "" &&
+      firstName === "" &&
+      lastName === "" &&
+      phone === ""
+    ) {
+      toast.error("Vui lòng nhập đầy đủ thông tin");
+      return;
+    } else {
+      axios
+        .post("http://localhost:8521/api/v1/auth/register", {
+          email: email,
+          passWordA: password,
+          enable: true,
+          roles: [{ id: 1 }],
+        })
+        .then((response) => {
+          const account = { id: response.data.id };
+          const customerData = {
+            firstName,
+            lastName,
+            email,
+            dateOfBirth: birthDay,
+            sex: parseInt(sex),
+            phone,
+            address,
+            account,
+            avatar: null,
+          };
+
+          axios
+            .post("/api/v1/customer/createOrUpdate", customerData)
+            .then((response) => {
+              // Xử lý khi tạo khách hàng thành công
+              console.log("Khách hàng đã được tạo:", response.data);
+              toast.success(`Chúc mừng bạn đã đăng ký thành công!`);
+              history.push("/login");
+            })
+            .catch((error) => {
+              // Xử lý khi có lỗi xảy ra
+
+              toast.error(response.data || "Đã có lỗi xảy ra.");
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error("Đã có lỗi xảy ra.");
+        });
     }
-
-    axios
-      .post("http://localhost:8521/api/v1/auth/register", {
-        email: email,
-        passWordA: password,
-        enable: true,
-        roles: [{ id: 1 }],
-      })
-      .then((response) => {
-        const account = { id: response.data.id };
-        const customerData = {
-          firstName,
-          lastName,
-          email,
-          dateOfBirth: birthDay,
-          sex: parseInt(sex),
-          phone,
-          address,
-          account,
-          avatar: null,
-        };
-
-        axios
-          .post(
-            "http://localhost:8521/api/v1/customer/createOrUpdate",
-            customerData
-          )
-          .then((response) => {
-            // Xử lý khi tạo khách hàng thành công
-            console.log("Khách hàng đã được tạo:", response.data);
-            toast.success(`Chúc mừng bạn đã đăng ký thành công!`);
-            history.push("/login");
-          })
-          .catch((error) => {
-            // Xử lý khi có lỗi xảy ra
-
-            toast.error(response.data || "Đã có lỗi xảy ra.");
-          });
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Đã có lỗi xảy ra.");
-      });
   };
 
   return (

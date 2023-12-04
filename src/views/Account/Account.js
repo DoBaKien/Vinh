@@ -176,7 +176,7 @@ function Account() {
                   fullWidth
                   inputFormat="DD/MM/YYYY"
                   views={["year", "month", "day"]}
-                  minDate={dayjs("2023-01-01")}
+                  minDate={dayjs("1900-01-01")}
                   onChange={(newValue) => {
                     setBirth(newValue);
                   }}

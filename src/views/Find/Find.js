@@ -11,7 +11,9 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { SapXep } from "../../assets/action/Data";
 function Find() {
   const { id } = useParams();
-  const itemDetails = id.split("aa");
+  const itemDetails = id.split(/[,]/);
+  const itemBrand = id.split(/[:]/);
+  console.log(itemBrand[1]);
   const [sortData, setSort] = useState("");
   const [dataPhone, setDataPhone] = useState([]);
 
@@ -29,16 +31,27 @@ function Find() {
           "http://localhost:8521/api/v1/products/getAll"
         );
         let data = res && res.data ? res.data : [];
+        // console.log(data[2].brand.name);
         if (sortData === "Giá cao - thấp") {
           setDataPhone(
             data
-              .filter((item) => item.category.categoryName === itemDetails[0])
+              .filter(
+                (item) =>
+                  item.category.id === parseInt(itemDetails[0]) ||
+                  item.category.id === parseInt(itemDetails[1]) ||
+                  item.category.id === parseInt(itemDetails[2])
+              )
               .sort((a, b) => b.price - a.price)
           );
         } else if (sortData === "Giá thấp - cao") {
           setDataPhone(
             data
-              .filter((item) => item.category.categoryName === itemDetails[0])
+              .filter(
+                (item) =>
+                  item.category.id === parseInt(itemDetails[0]) ||
+                  item.category.id === parseInt(itemDetails[1]) ||
+                  item.category.id === parseInt(itemDetails[2])
+              )
               .sort((a, b) => a.price - b.price)
           );
         } else if (sortData === "Khuyến mãi hot") {
@@ -47,7 +60,10 @@ function Find() {
             .then(function (response) {
               setDataPhone(
                 response.data.filter(
-                  (item) => item.category.categoryName === itemDetails[0]
+                  (item) =>
+                    item.category.id === parseInt(itemDetails[0]) ||
+                    item.category.id === parseInt(itemDetails[1]) ||
+                    item.category.id === parseInt(itemDetails[2])
                 )
               );
             })
@@ -56,7 +72,12 @@ function Find() {
             });
         } else if (sortData === "") {
           setDataPhone(
-            data.filter((item) => item.category.categoryName === itemDetails[0])
+            data.filter(
+              (item) =>
+                item.category.id === parseInt(itemDetails[0]) ||
+                item.category.id === parseInt(itemDetails[1]) ||
+                item.category.id === parseInt(itemDetails[2])
+            )
           );
         }
       } catch (error) {

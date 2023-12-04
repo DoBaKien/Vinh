@@ -24,27 +24,27 @@ function HoverMenu({ hovered, setHovered, data }) {
   const [daas, setDaas] = useState("");
   useEffect(() => {
     switch (data) {
-      case "Main":
+      case "12,7,11":
         setDaa(dataPK);
         setDaas(dataPK2);
         break;
-      case "Laptop":
+      case "1":
         setDaa(dataLap);
         setDaas(dataLap2);
         break;
-      case "Case":
+      case "8,9":
         setDaa(dataGaming);
         setDaas(dataGaming2);
         break;
-      case "SSD":
+      case "5,6":
         setDaa(dataStorage);
         setDaas(dataStorage2);
         break;
-      case "Loa":
+      case "10":
         setDaa(dataTn);
         setDaas(dataTn2);
         break;
-      case "Key":
+      case "3,2,4":
         setDaa(dataLK);
         setDaas(dataLK2);
         break;
@@ -55,7 +55,7 @@ function HoverMenu({ hovered, setHovered, data }) {
   const history = useHistory();
 
   const handled = (as) => {
-    history.push(`/Find/${data + "aa" + as}`);
+    history.push(`/Find/${data + ":" + as}`);
   };
   return (
     <>

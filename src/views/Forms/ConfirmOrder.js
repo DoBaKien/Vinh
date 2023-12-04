@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/ConfirmOrder.scss";
-import { Stack } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 const ConfirmOrder = ({
   cart,
   value,
@@ -51,18 +51,25 @@ const ConfirmOrder = ({
             <div class="item">
               {cart.map((item, i) => (
                 <div key={item.product.id}>
-                  <Stack
-                    direction={"row"}
-                    sx={{
-                      color: "#19376D",
-                      justifyContent: "space-between",
-                      marginRight: 5,
-                    }}
-                  >
-                    <strong>{i}</strong>
-                    <strong>{item.product.productName}</strong>
-                    <strong> Số lượng: {item.quantity}</strong>
-                  </Stack>
+                  <Box>
+                    <Stack
+                      direction={"row"}
+                      sx={{
+                        color: "#19376D",
+                        justifyContent: "space-between",
+                        paddingRight: 2,
+                      }}
+                    >
+                      <Typography sx={{ width: 350 }}>
+                        {item.product.productName}
+                      </Typography>
+
+                      <Typography sx={{ width: 120 }}>
+                        Số lượng: {item.quantity}
+                      </Typography>
+                    </Stack>
+                    <Divider sx={{ border: "1px solid black", marginTop: 1 }} />
+                  </Box>
                 </div>
               ))}
             </div>

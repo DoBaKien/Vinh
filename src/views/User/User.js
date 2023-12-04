@@ -79,7 +79,7 @@ function User() {
             <Box
               sx={{
                 width: 300,
-                textAlign: "center",
+
                 paddingTop: 2,
                 border: "1px solid black",
                 borderRadius: 5,
@@ -88,7 +88,14 @@ function User() {
               }}
             >
               <Box>
-                <Typography variant="h5">Chương trình nổi bật</Typography>
+                <Typography variant="h5" sx={{ textAlign: "center" }}>
+                  Chương trình nổi bật
+                </Typography>
+                <ul style={{ fontSize: 20 }}>
+                  <li>Chương trình khuyến mãi Black Friday</li>
+                  <li>Chương trình khuyến mãi Back to school</li>
+                  <li>Chương trình khuyến mãi 20/11</li>
+                </ul>
               </Box>
             </Box>
           </Stack>
@@ -99,6 +106,7 @@ function User() {
               display: "flex",
               justifyContent: "space-between",
               marginTop: 5,
+              marginBottom: 5,
             }}
           >
             <BoxItem sx={{ backgroundColor: "#63C0EA" }}>
