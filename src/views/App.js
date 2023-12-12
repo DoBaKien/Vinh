@@ -72,7 +72,7 @@ function App() {
               <></>
             )}
 
-            <Switch>
+            <Switch basename="/Vinh">
               <Route path="/" exact>
                 <Home />
               </Route>
