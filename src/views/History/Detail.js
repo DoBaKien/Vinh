@@ -10,7 +10,7 @@ import {
 import Left from "../User/Left";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BoxBtn, GridBox, SaleDis, StackNav, ValueDate2 } from "./Style";
+import { GridBox, SaleDis, ValueDate2 } from "./Style";
 import { DataGrid } from "@mui/x-data-grid";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -25,7 +25,6 @@ function Detail() {
     axios
       .get(`/api/v1/orders/getOrderById/${idO.id}`)
       .then(function (response) {
-        console.log(response.data);
         setData(response.data);
         setSum(
           response.data.orderDetails.reduce(

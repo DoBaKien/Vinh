@@ -4,5 +4,3 @@ export const handleTop = () => {
     behavior: "smooth",
   });
 };
-
-export const addCartItem = async (productId, userId, CartId) => {};

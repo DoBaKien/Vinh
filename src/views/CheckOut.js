@@ -17,11 +17,9 @@ import {
 } from "@mui/material";
 const CheckOut = (props) => {
   const [cart, setCart] = useState([]);
-
   const history = useHistory();
   const [user, setUser] = useState();
   const [CartId, setCartId] = useState([]);
-
   const dataUser = JSON.parse(localStorage.getItem("data"));
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -96,7 +94,7 @@ const CheckOut = (props) => {
 
     await axios
       .post(
-        `http://localhost:8521/api/v1/orders/saveOrUpdate/${dataUser.shoppingCart.id}`,
+        `/api/v1/orders/saveOrUpdate/${dataUser.shoppingCart.id}`,
         orderData
       )
       .then((res) => {
@@ -129,7 +127,7 @@ const CheckOut = (props) => {
   const fetchCartDetail = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:8521/api/v1/shoppingCartDetails/getById/${id}`
+        `/api/v1/shoppingCartDetails/getById/${id}`
       );
 
       if (response.status === 200) {

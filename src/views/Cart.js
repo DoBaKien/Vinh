@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import CartItem from "../components/CartItem";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import axios from "axios";
 
 const Cart = () => {
   const accessToken = localStorage.getItem("token");
@@ -18,21 +19,15 @@ const Cart = () => {
   const [selectedItemCount, setSelectedItemCount] = useState(0);
 
   const fetchData = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:8521/api/v1/shoppingCarts/getById/${CartId}`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-
-        setCart(data.cartItems);
-      } else {
-        console.log("errrrrrrrrrrrrrrrr");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    axios
+      .get(`/api/v1/shoppingCarts/getById/${CartId}`)
+      .then(function (response) {
+        console.log(response.data);
+        setCart(response.data.cartItems);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, [CartId]);
 
   useEffect(() => {

@@ -22,7 +22,7 @@ const ListOrder = () => {
       statusOrder: "Hủy",
     };
     axios
-      .post(`'http://localhost:8521/api/v1/orders/saveOrUpdate`, form)
+      .post(`/api/v1/orders/saveOrUpdate`, form)
       .then((res) => {
         console.log(res.data);
         //   history.push("/Personal");
@@ -41,7 +41,7 @@ const ListOrder = () => {
   useEffect(() => {
     if (user) {
       axios
-        .get(`http://localhost:8521/api/v1/orders/getByCustomer/${user.id}`)
+        .get(`/api/v1/orders/getByCustomer/${user.id}`)
         .then((res) => {
           setListOrder(res.data);
           console.log(res.data);

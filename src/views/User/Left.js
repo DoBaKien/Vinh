@@ -7,8 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-
-import ReportIcon from "@mui/icons-material/Report";
+import LockResetIcon from "@mui/icons-material/LockReset";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";
 import { useHistory } from "react-router-dom";
@@ -72,11 +71,11 @@ function Left() {
           <Divider />
           <Divider />
           <ListItem disablePadding sx={{ marginTop: 2, marginBottom: 2 }}>
-            <ListItemButton>
+            <ListItemButton onClick={() => history.push("/ForgotPass")}>
               <ListItemIcon>
-                <ReportIcon />
+                <LockResetIcon />
               </ListItemIcon>
-              <ListItemText primary="Phản hồi" />
+              <ListItemText primary="Reset Mật khẩu" />
             </ListItemButton>
           </ListItem>
           <Divider />

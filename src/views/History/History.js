@@ -12,7 +12,7 @@ function History() {
   const historyasd = useHistory();
   useEffect(() => {
     axios
-      .get(`http://localhost:8521/api/v1/orders/getByCustomer/${dataUser.id}`)
+      .get(`/api/v1/orders/getByCustomer/${dataUser.id}`)
       .then(function (response) {
         console.log(response.data);
         setData(response.data);

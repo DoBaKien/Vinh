@@ -32,8 +32,7 @@ const Nav = () => {
     const data = localStorage.getItem("data");
     setUser(JSON.parse(data));
   }, []);
-  console.log(user);
-  console.log(isLoggedIn);
+
   return (
     <div>
       <nav className="navbar navbar-expand-md bg-blue sticky-top navbar-light  shadow-sm ">

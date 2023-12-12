@@ -54,9 +54,7 @@ const Shopping = () => {
       // Fetch data based on searchValue
       async function fetchData() {
         try {
-          let res = await axios.get(
-            `http://localhost:8521/api/v1/products/getByName/${searchValue}`
-          );
+          let res = await axios.get(`api/v1/products/getByName/${searchValue}`);
 
           let data = res && res.data ? res.data : [];
           setDataPhone(data);

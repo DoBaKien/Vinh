@@ -8,18 +8,15 @@ const ForgotPass = () => {
   const handleResetPassword = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/account/forgot-password",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-          }),
-        }
-      );
+      const response = await fetch("/api/account/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
       const data = await response.json();
 
       if (data.errorCode !== undefined) {

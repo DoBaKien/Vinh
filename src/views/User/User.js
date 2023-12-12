@@ -17,7 +17,6 @@ function User() {
     axios
       .get(`/api/v1/customer/getByPhone/${dataUser.phone}`)
       .then(function (response) {
-        console.log(response.data);
         setData(response.data);
       })
       .catch(function (error) {
@@ -67,7 +66,7 @@ function User() {
                   <WorkspacePremiumIcon
                     sx={{ fontSize: 60, color: "#F1B69B" }}
                   />
-                  <Typography variant="subtitle1">26/2/2017</Typography>
+                  <Typography variant="subtitle1">Bạc</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle1">Điểm tích lũy</Typography>

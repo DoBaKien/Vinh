@@ -5,7 +5,6 @@ import Login from "../views/Login.js";
 import { ToastContainer } from "react-toastify";
 import ForgotPass from "./ForgotPass";
 import "react-toastify/dist/ReactToastify.css";
-
 import Shopping from "./Shopping";
 import DetailItem from "../components/DetaiItem";
 import Cart from "./Cart";
@@ -28,6 +27,7 @@ import Detail from "./History/Detail.js";
 import Account from "./Account/Account.js";
 import Support from "./Support/Support.js";
 import Find from "./Find/Find.js";
+import FPassword from "./FPassword/FPassword.js";
 
 function App() {
   const [isLog, setIsLog] = useState(false);
@@ -78,6 +78,9 @@ function App() {
               </Route>
               <Route path="/Support" exact>
                 <Support />
+              </Route>
+              <Route path="/ForgotPass" exact>
+                <FPassword />
               </Route>
               <Route path="/Find/:id">
                 <Find />
