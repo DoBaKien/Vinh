@@ -39,7 +39,7 @@ const Shopping = () => {
       // Fetch data when searchValue is empty
       async function fetchData() {
         try {
-          let res = await axios.get("/api/v1/products/getAll");
+          let res = await axios.get("api/v1/products/getAll");
           let data = res && res.data ? res.data : [];
           setDataPhone(data);
         } catch (error) {
@@ -69,11 +69,11 @@ const Shopping = () => {
   useEffect(() => {
     async function fetchCategoryAndBrand() {
       try {
-        const resCate = await axios.get("/api/v1/category/getAll");
+        const resCate = await axios.get("api/v1/category/getAll");
         const dataCate = resCate.data || [];
         setCategory(dataCate);
 
-        const resBrand = await axios.get("/api/v1/brands/getAllBrand");
+        const resBrand = await axios.get("api/v1/brands/getAllBrand");
         const dataBrand = resBrand.data || [];
         setBrand(dataBrand);
       } catch (error) {
