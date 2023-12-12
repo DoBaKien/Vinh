@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Vinh/static/css/main.d0beb92d.css",
-    "main.js": "/Vinh/static/js/main.82c125c5.js",
+    "main.js": "/Vinh/static/js/main.6a83b997.js",
     "static/media/thumbai_1.png": "/Vinh/static/media/thumbai_1.9c5843aa8dbb3b1bac17.png",
     "static/media/thumbai_2.png": "/Vinh/static/media/thumbai_2.9a69dfc03638206b7ad5.png",
     "static/media/thumbai_3.png": "/Vinh/static/media/thumbai_3.a46fb0257ea7c6bec90a.png",
     "static/media/logo.png": "/Vinh/static/media/logo.acdb74d8d5aabbbca821.png",
     "index.html": "/Vinh/index.html",
     "main.d0beb92d.css.map": "/Vinh/static/css/main.d0beb92d.css.map",
-    "main.82c125c5.js.map": "/Vinh/static/js/main.82c125c5.js.map"
+    "main.6a83b997.js.map": "/Vinh/static/js/main.6a83b997.js.map"
   },
   "entrypoints": [
     "static/css/main.d0beb92d.css",
-    "static/js/main.82c125c5.js"
+    "static/js/main.6a83b997.js"
   ]
 }
