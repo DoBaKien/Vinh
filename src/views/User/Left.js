@@ -75,7 +75,7 @@ function Left() {
               <ListItemIcon>
                 <LockResetIcon />
               </ListItemIcon>
-              <ListItemText primary="Reset Mật khẩu" />
+              <ListItemText primary="Đổi mật khẩu" />
             </ListItemButton>
           </ListItem>
           <Divider />

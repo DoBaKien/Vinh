@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./styles/index.scss";
 import App from "./views/App";
 import axios from "axios";
-
-axios.defaults.baseURL = "https://kltnhk2023server-production.up.railway.app/";
+import { HashRouter } from "react-router-dom";
+axios.defaults.baseURL = "http://localhost:8521/";
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -12,7 +12,12 @@ axios.defaults.baseURL = "https://kltnhk2023server-production.up.railway.app/";
 //     <App />
 //   </React.StrictMode>
 // );
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <HashRouter>
+    <App />
+  </HashRouter>,
+  document.getElementById("root")
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

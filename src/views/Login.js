@@ -11,6 +11,8 @@ import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 import { useHistory } from "react-router-dom";
 
 import { useState } from "react";
+import { Typography } from "@mui/material";
+import Swal from "sweetalert2";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
@@ -60,6 +62,45 @@ const Login = () => {
     }
   };
 
+  const handleF = () => {
+    Swal.fire({
+      title: "Vui lòng điền Email",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Đồng ý",
+      cancelButtonText: "Hủy",
+      reverseButtons: true,
+      preConfirm: async (login) => {
+        try {
+          axios
+            .get(`/api/v1/sendMail/resetPassword/${login}`)
+            .then(function (response) {
+              return response.json();
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } catch (error) {
+          Swal.showValidationMessage(`
+            Request failed: ${error}
+          `);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Thành công",
+          text: "Đã gửi mật khẩu mới về email của bạn",
+          icon: "success",
+        });
+      }
+    });
+  };
+
   return (
     <form className="col-8 offset-2  containerLogin justify-content-center bgLogin">
       <div className="col-12">
@@ -105,6 +146,14 @@ const Login = () => {
               Lưu tài khoản
             </label>
           </div>
+        </div>
+        <div className="d-grid mb-3">
+          <Typography
+            style={{ textDecoration: "underline", cursor: "pointer" }}
+            onClick={handleF}
+          >
+            Quên mật khẩu ?
+          </Typography>
         </div>
         <div className="d-grid mb-3">
           <button

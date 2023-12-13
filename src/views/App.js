@@ -45,7 +45,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/Vinh">
         <div className="App">
           <header className="App-header">
             <Nav value={isLog} />
@@ -72,7 +72,7 @@ function App() {
               <></>
             )}
 
-            <Switch basename="/Vinh">
+            <Switch>
               <Route path="/" exact>
                 <Home />
               </Route>
